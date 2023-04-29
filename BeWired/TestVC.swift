@@ -7,13 +7,35 @@
 
 import UIKit
 
-class TestVC: UIViewController {
-
+final class TestVC: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .cyan
+        initialize()
+        view.backgroundColor = .systemBackground
     }
-
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupLayout()
+    }
+    
+    
+    private func initialize() {
+        addSubviews()
+        addTargets()
+    }
+    
+    private func addSubviews() {
+        
+    }
+    
+    private func setupLayout() {
+        
+    }
+    
+    private func addTargets() {
+        
+    }
+    
 }
-
