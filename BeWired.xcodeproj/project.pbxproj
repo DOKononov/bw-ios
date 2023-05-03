@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400D2C5F2A024D2E0089ED6A /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */; };
 		40525B8E29F8476000367AD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525B8D29F8476000367AD1 /* AppDelegate.swift */; };
 		40525B9029F8476000367AD1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525B8F29F8476000367AD1 /* SceneDelegate.swift */; };
 		40525B9229F8476000367AD1 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525B9129F8476000367AD1 /* TestVC.swift */; };
 		40525B9829F8476000367AD1 /* BeWired.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40525B9629F8476000367AD1 /* BeWired.xcdatamodeld */; };
 		40525B9A29F8476200367AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40525B9929F8476200367AD1 /* Assets.xcassets */; };
 		40525B9D29F8476200367AD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40525B9B29F8476200367AD1 /* LaunchScreen.storyboard */; };
-		40525BAB29F9179A00367AD1 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525BAA29F9179A00367AD1 /* AudioRecorder.swift */; };
 		40525BAD29F91F0D00367AD1 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525BAC29F91F0D00367AD1 /* AudioPlayer.swift */; };
 		40525BAF29F91FD300367AD1 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525BAE29F91FD300367AD1 /* AudioStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		40525B8A29F8476000367AD1 /* BeWired.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeWired.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40525B8D29F8476000367AD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40525B8F29F8476000367AD1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,7 +28,6 @@
 		40525B9929F8476200367AD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40525B9C29F8476200367AD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40525B9E29F8476200367AD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40525BAA29F9179A00367AD1 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = SOURCE_ROOT; };
 		40525BAC29F91F0D00367AD1 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		40525BAE29F91FD300367AD1 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,7 +109,7 @@
 		40525BA929F9178700367AD1 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				40525BAA29F9179A00367AD1 /* AudioRecorder.swift */,
+				400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */,
 				40525BAC29F91F0D00367AD1 /* AudioPlayer.swift */,
 				40525BAE29F91FD300367AD1 /* AudioStorage.swift */,
 			);
@@ -190,8 +190,8 @@
 				40525B8E29F8476000367AD1 /* AppDelegate.swift in Sources */,
 				40525B9829F8476000367AD1 /* BeWired.xcdatamodeld in Sources */,
 				40525B9029F8476000367AD1 /* SceneDelegate.swift in Sources */,
-				40525BAB29F9179A00367AD1 /* AudioRecorder.swift in Sources */,
 				40525BAF29F91FD300367AD1 /* AudioStorage.swift in Sources */,
+				400D2C5F2A024D2E0089ED6A /* AudioRecorder.swift in Sources */,
 				40525BAD29F91F0D00367AD1 /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
