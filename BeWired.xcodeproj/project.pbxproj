@@ -7,18 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400D2C5F2A024D2E0089ED6A /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */; };
+		404C326E2A0BEC5700613790 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C326D2A0BEC5700613790 /* User.swift */; };
+		404C32712A0BEC8A00613790 /* AuthMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C32702A0BEC8A00613790 /* AuthMapper.swift */; };
+		404EA6582A056B8F00CA6228 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404EA6572A056B8F00CA6228 /* AuthService.swift */; };
 		40525B8E29F8476000367AD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525B8D29F8476000367AD1 /* AppDelegate.swift */; };
 		40525B9029F8476000367AD1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525B8F29F8476000367AD1 /* SceneDelegate.swift */; };
 		40525B9229F8476000367AD1 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525B9129F8476000367AD1 /* TestVC.swift */; };
 		40525B9829F8476000367AD1 /* BeWired.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40525B9629F8476000367AD1 /* BeWired.xcdatamodeld */; };
 		40525B9A29F8476200367AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40525B9929F8476200367AD1 /* Assets.xcassets */; };
 		40525B9D29F8476200367AD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40525B9B29F8476200367AD1 /* LaunchScreen.storyboard */; };
-		40525BAB29F9179A00367AD1 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525BAA29F9179A00367AD1 /* AudioRecorder.swift */; };
 		40525BAD29F91F0D00367AD1 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525BAC29F91F0D00367AD1 /* AudioPlayer.swift */; };
 		40525BAF29F91FD300367AD1 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40525BAE29F91FD300367AD1 /* AudioStorage.swift */; };
+		407AD7EF2A040FEE000054F2 /* TDLibKit in Frameworks */ = {isa = PBXBuildFile; productRef = 407AD7EE2A040FEE000054F2 /* TDLibKit */; };
+		407E968E2A07D2E9008E6ACA /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E968D2A07D2E9008E6ACA /* ConfirmationVC.swift */; };
+		407E96902A07D8AF008E6ACA /* ConfirmationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E968F2A07D8AF008E6ACA /* ConfirmationVM.swift */; };
+		407E96932A07DD60008E6ACA /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96922A07DD60008E6ACA /* WelcomeVC.swift */; };
+		407E96952A07E062008E6ACA /* WelcomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96942A07E062008E6ACA /* WelcomeVM.swift */; };
+		40F7AFC52A068BB8002EC857 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFC42A068BB8002EC857 /* AuthError.swift */; };
+		40F7AFC72A068D1D002EC857 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFC62A068D1D002EC857 /* LoginVC.swift */; };
+		40F7AFCA2A069303002EC857 /* UIView+rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFC92A069303002EC857 /* UIView+rounded.swift */; };
+		40F7AFCC2A069321002EC857 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFCB2A069321002EC857 /* Constants.swift */; };
+		40F833122A06A3E600E2CB86 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F833112A06A3E600E2CB86 /* LoginVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		404C326D2A0BEC5700613790 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		404C32702A0BEC8A00613790 /* AuthMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMapper.swift; sourceTree = "<group>"; };
+		404EA6572A056B8F00CA6228 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		40525B8A29F8476000367AD1 /* BeWired.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeWired.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40525B8D29F8476000367AD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40525B8F29F8476000367AD1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,9 +44,17 @@
 		40525B9929F8476200367AD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40525B9C29F8476200367AD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40525B9E29F8476200367AD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40525BAA29F9179A00367AD1 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = SOURCE_ROOT; };
 		40525BAC29F91F0D00367AD1 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		40525BAE29F91FD300367AD1 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
+		407E968D2A07D2E9008E6ACA /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
+		407E968F2A07D8AF008E6ACA /* ConfirmationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVM.swift; sourceTree = "<group>"; };
+		407E96922A07DD60008E6ACA /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
+		407E96942A07E062008E6ACA /* WelcomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVM.swift; sourceTree = "<group>"; };
+		40F7AFC42A068BB8002EC857 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		40F7AFC62A068D1D002EC857 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		40F7AFC92A069303002EC857 /* UIView+rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+rounded.swift"; sourceTree = "<group>"; };
+		40F7AFCB2A069321002EC857 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		40F833112A06A3E600E2CB86 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,12 +62,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				407AD7EF2A040FEE000054F2 /* TDLibKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		402ACFA92A097525006975E5 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				40F833102A06A38D00E2CB86 /* LoginModule */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		404C326C2A0BEC4300613790 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				404C326D2A0BEC5700613790 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		404C326F2A0BEC7500613790 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				404C32702A0BEC8A00613790 /* AuthMapper.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		404EA6562A056B7B00CA6228 /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				404EA6572A056B8F00CA6228 /* AuthService.swift */,
+				40F7AFC42A068BB8002EC857 /* AuthError.swift */,
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
 		40525B8129F8476000367AD1 = {
 			isa = PBXGroup;
 			children = (
@@ -62,10 +121,14 @@
 		40525B8C29F8476000367AD1 /* BeWired */ = {
 			isa = PBXGroup;
 			children = (
+				404C326F2A0BEC7500613790 /* Mappers */,
+				404C326C2A0BEC4300613790 /* Models */,
+				40F7AFC82A0692E2002EC857 /* Extensions */,
 				40525BA429F8481D00367AD1 /* App */,
 				40525BA529F8485F00367AD1 /* Resources */,
 				40525BA729F8488800367AD1 /* Services */,
 				40525B9129F8476000367AD1 /* TestVC.swift */,
+				402ACFA92A097525006975E5 /* Modules */,
 			);
 			path = BeWired;
 			sourceTree = "<group>";
@@ -92,6 +155,7 @@
 		40525BA729F8488800367AD1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				404EA6562A056B7B00CA6228 /* AuthService */,
 				40525BA929F9178700367AD1 /* Audio */,
 				40525BA829F8489400367AD1 /* CoreData */,
 			);
@@ -109,11 +173,57 @@
 		40525BA929F9178700367AD1 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				40525BAA29F9179A00367AD1 /* AudioRecorder.swift */,
+				400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */,
 				40525BAC29F91F0D00367AD1 /* AudioPlayer.swift */,
 				40525BAE29F91FD300367AD1 /* AudioStorage.swift */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		407E96912A07DD01008E6ACA /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				407E96922A07DD60008E6ACA /* WelcomeVC.swift */,
+				407E96942A07E062008E6ACA /* WelcomeVM.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		40F5C7132A0797800025257E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				40F7AFC62A068D1D002EC857 /* LoginVC.swift */,
+				40F833112A06A3E600E2CB86 /* LoginVM.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		40F5C7142A07978C0025257E /* Confirmation */ = {
+			isa = PBXGroup;
+			children = (
+				407E968D2A07D2E9008E6ACA /* ConfirmationVC.swift */,
+				407E968F2A07D8AF008E6ACA /* ConfirmationVM.swift */,
+			);
+			path = Confirmation;
+			sourceTree = "<group>";
+		};
+		40F7AFC82A0692E2002EC857 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				40F7AFC92A069303002EC857 /* UIView+rounded.swift */,
+				40F7AFCB2A069321002EC857 /* Constants.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		40F833102A06A38D00E2CB86 /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				40F5C7132A0797800025257E /* Login */,
+				40F5C7142A07978C0025257E /* Confirmation */,
+				407E96912A07DD01008E6ACA /* Welcome */,
+			);
+			path = LoginModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +242,9 @@
 			dependencies = (
 			);
 			name = BeWired;
+			packageProductDependencies = (
+				407AD7EE2A040FEE000054F2 /* TDLibKit */,
+			);
 			productName = BeWired;
 			productReference = 40525B8A29F8476000367AD1 /* BeWired.app */;
 			productType = "com.apple.product-type.application";
@@ -160,6 +273,9 @@
 				Base,
 			);
 			mainGroup = 40525B8129F8476000367AD1;
+			packageReferences = (
+				407AD7ED2A040FEE000054F2 /* XCRemoteSwiftPackageReference "TDLibKit" */,
+			);
 			productRefGroup = 40525B8B29F8476000367AD1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -186,13 +302,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				407E96952A07E062008E6ACA /* WelcomeVM.swift in Sources */,
 				40525B9229F8476000367AD1 /* TestVC.swift in Sources */,
+				407E968E2A07D2E9008E6ACA /* ConfirmationVC.swift in Sources */,
+				40F833122A06A3E600E2CB86 /* LoginVM.swift in Sources */,
 				40525B8E29F8476000367AD1 /* AppDelegate.swift in Sources */,
 				40525B9829F8476000367AD1 /* BeWired.xcdatamodeld in Sources */,
 				40525B9029F8476000367AD1 /* SceneDelegate.swift in Sources */,
-				40525BAB29F9179A00367AD1 /* AudioRecorder.swift in Sources */,
+				404C32712A0BEC8A00613790 /* AuthMapper.swift in Sources */,
+				40F7AFC72A068D1D002EC857 /* LoginVC.swift in Sources */,
 				40525BAF29F91FD300367AD1 /* AudioStorage.swift in Sources */,
+				400D2C5F2A024D2E0089ED6A /* AudioRecorder.swift in Sources */,
+				40F7AFCA2A069303002EC857 /* UIView+rounded.swift in Sources */,
+				40F7AFC52A068BB8002EC857 /* AuthError.swift in Sources */,
 				40525BAD29F91F0D00367AD1 /* AudioPlayer.swift in Sources */,
+				407E96902A07D8AF008E6ACA /* ConfirmationVM.swift in Sources */,
+				404C326E2A0BEC5700613790 /* User.swift in Sources */,
+				404EA6582A056B8F00CA6228 /* AuthService.swift in Sources */,
+				40F7AFCC2A069321002EC857 /* Constants.swift in Sources */,
+				407E96932A07DD60008E6ACA /* WelcomeVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -314,7 +442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -338,6 +466,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -365,6 +494,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -400,6 +530,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		407AD7ED2A040FEE000054F2 /* XCRemoteSwiftPackageReference "TDLibKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swiftgram/TDLibKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		407AD7EE2A040FEE000054F2 /* TDLibKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 407AD7ED2A040FEE000054F2 /* XCRemoteSwiftPackageReference "TDLibKit" */;
+			productName = TDLibKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		40525B9629F8476000367AD1 /* BeWired.xcdatamodeld */ = {

@@ -15,6 +15,6 @@ final class AudioStorage: AudioStorageProtocol {
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectoryPath = path[0]
-        return documentDirectoryPath.appending(path: "recording.wav")
+        return documentDirectoryPath.appendingPathComponent("recording.wav", conformingTo: .audio)
     }  
 }
