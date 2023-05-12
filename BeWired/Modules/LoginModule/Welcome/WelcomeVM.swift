@@ -14,7 +14,7 @@ protocol WelcomeViewModelProtocol {
     var didLogedout: (() -> Void)? {get set}
 }
 
-final class WelcomeViewMidel: WelcomeViewModelProtocol {
+final class WelcomeViewModel: WelcomeViewModelProtocol {
     var didReciveError: ((String) -> Void)?
     
     private let auth = AuthService.shared

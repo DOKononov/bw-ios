@@ -9,7 +9,16 @@ import UIKit
 
 final class WelcomeVC: UIViewController {
     
-    private var viewmodel: WelcomeViewModelProtocol = WelcomeViewMidel()
+    private var viewmodel: WelcomeViewModelProtocol
+    
+    init(viewmodel: WelcomeViewModelProtocol) {
+        self.viewmodel = viewmodel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let userImageView: UIImageView = {
         let view = UIImageView()
@@ -22,7 +31,7 @@ final class WelcomeVC: UIViewController {
     private let welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = "Welcome!"
-        label.font = UIFont.systemFont(ofSize: Constants.titleLabelSize, weight: .thin)
+        label.font = UIFont.systemFont(ofSize: Constants.size25, weight: .thin)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -33,7 +42,7 @@ final class WelcomeVC: UIViewController {
         let label = UILabel()
         label.text = "???user data???"
         label.contentMode = .top
-        label.font = UIFont.systemFont(ofSize: Constants.regulerLabelSize, weight: .thin)
+        label.font = UIFont.systemFont(ofSize: Constants.size18, weight: .thin)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -84,7 +93,7 @@ final class WelcomeVC: UIViewController {
         
         viewmodel.didLogedout = { [weak self] in
             DispatchQueue.main.async {
-                let loginVC = LoginVC()
+                let loginVC = LoginVC(viewmodel: LoginViewModel())
                 guard let navigationController = self?.navigationController else { return }
                 
                 UIView.transition(with: navigationController.view,
@@ -125,7 +134,12 @@ final class WelcomeVC: UIViewController {
     private func showUserData(_ user: User) {
         welcomeLabel.text = "Welcome, \(user.firstName) \(user.lastName)!"
         userDataLabel.text = "user id: \(user.id) \n user phone number: \(user.phoneNumber)"
-        userImageView.image = user.profilePhoto ?? UIImage(systemName: "photo")
+        
+        if let data = user.profilePhotoData, let image = UIImage(data: data) {
+            userImageView.image = image
+        } else {
+            userImageView.image = UIImage(systemName: "photo")
+        }
     }
     
     
@@ -139,26 +153,26 @@ final class WelcomeVC: UIViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            userImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.offsetS),
+            userImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.offset8),
             userImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            userImageView.widthAnchor.constraint(equalToConstant: Constants.userImageHeight),
-            userImageView.heightAnchor.constraint(equalToConstant: Constants.userImageHeight),
+            userImageView.widthAnchor.constraint(equalToConstant: Constants.height150),
+            userImageView.heightAnchor.constraint(equalToConstant: Constants.height150),
             
-            welcomeLabel.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: Constants.offsetM),
-            welcomeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offsetS),
-            welcomeLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offsetS),
-            welcomeLabel.heightAnchor.constraint(equalToConstant: Constants.regularLabelHeight),
+            welcomeLabel.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: Constants.offset16),
+            welcomeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset8),
+            welcomeLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            welcomeLabel.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            userDataLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: Constants.offsetS),
-            userDataLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offsetS),
-            userDataLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offsetS),
-            userDataLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.regularLabelHeight),
+            userDataLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: Constants.offset8),
+            userDataLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset8),
+            userDataLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            userDataLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.height50),
             
-            logoutButton.topAnchor.constraint(greaterThanOrEqualTo: userDataLabel.bottomAnchor, constant: Constants.offsetS),
+            logoutButton.topAnchor.constraint(greaterThanOrEqualTo: userDataLabel.bottomAnchor, constant: Constants.offset8),
             logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoutButton.widthAnchor.constraint(equalToConstant: Constants.regularButtonWidth),
-            logoutButton.heightAnchor.constraint(equalToConstant: Constants.regularButtonHeight),
-            logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.offsetS),
+            logoutButton.widthAnchor.constraint(equalToConstant: Constants.width160),
+            logoutButton.heightAnchor.constraint(equalToConstant: Constants.height40),
+            logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.offset8),
             
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)

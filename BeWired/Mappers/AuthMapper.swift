@@ -18,7 +18,6 @@ final class AuthMapper: AuthMapperProtocol {
         return User(firstName: user.firstName,
                     lastName: user.lastName,
                     id: Int(user.id),
-                    phoneNumber: user.phoneNumber,
-                    profilePhoto: nil)
+                    phoneNumber: user.phoneNumber)
     }
 }

@@ -80,9 +80,8 @@ final class AuthService: AuthServiceProtocol {
                     do {
                         let file = try await api.downloadFile(fileId: profilePhotoId, limit: 0, offset: 0, priority: 1, synchronous: true)
                         let filePath = file.local.path
-                        let imageData = try Data(contentsOf: URL(filePath: filePath))
-                        let profilePhoto = UIImage(data: imageData)
-                        user.profilePhoto = profilePhoto
+                        let imageData = try Data(contentsOf: URL(fileURLWithPath: filePath))
+                        user.profilePhotoData = imageData
                     } catch {
                         completion(.success(user))
                         return
@@ -124,8 +123,8 @@ private extension AuthService {
             switch result {
             case .success(let success):
                 print(success)
-            case .failure(let failure):
-                print(failure.localizedDescription)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
@@ -150,7 +149,7 @@ private extension AuthService {
         Task.init {
             do {
                 guard let file = try? await api.downloadFile(fileId: profilePhotoId, limit: 0, offset: 0, priority: 1, synchronous: true),
-                      let imageData = try? Data(contentsOf: URL(filePath: file.local.path))
+                      let imageData = try? Data(contentsOf: URL(fileURLWithPath: file.local.path))
                 else {  return }
                 
                 let image = UIImage(data: imageData)

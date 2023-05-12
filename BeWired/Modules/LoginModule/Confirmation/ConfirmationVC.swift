@@ -9,12 +9,22 @@ import UIKit
 
 final class ConfirmationVC: UIViewController {
     
-    private var viewmodel: ConfirmationViewModelProtocol = ConfirmationViewModel()
+    private var viewmodel: ConfirmationViewModelProtocol
+    
+    init(viewmodel: ConfirmationViewModelProtocol) {
+        self.viewmodel = viewmodel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     private let confirmLabel: UILabel = {
         let label = UILabel()
         label.text = "Enter telegram Login code"
-        label.font = UIFont.systemFont(ofSize: Constants.titleLabelSize, weight: .thin)
+        label.font = UIFont.systemFont(ofSize: Constants.size25, weight: .thin)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -67,14 +77,14 @@ final class ConfirmationVC: UIViewController {
     private func bind() {
         viewmodel.didConfirmPhoneNumber = { [weak self] in
             DispatchQueue.main.async {
-                let nextVC = WelcomeVC()
+                let nextVC = WelcomeVC(viewmodel: WelcomeViewModel())
                 self?.navigationController?.setViewControllers([nextVC], animated: true)
             }
         }
         viewmodel.didReciveError = { [weak self] errorMessage in
             DispatchQueue.main.async {
                 self?.confirmLabel.text = errorMessage
-                self?.confirmLabel.font = .systemFont(ofSize: Constants.errorLabelSize)
+                self?.confirmLabel.font = .systemFont(ofSize: Constants.size12)
             }
         }
     }
@@ -89,24 +99,24 @@ final class ConfirmationVC: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             confirmLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            confirmLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offsetS),
-            confirmLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offsetS),
-            confirmLabel.heightAnchor.constraint(equalToConstant: Constants.regularLabelHeight),
+            confirmLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset8),
+            confirmLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            confirmLabel.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            telegramImageView.topAnchor.constraint(equalTo: confirmLabel.bottomAnchor, constant: Constants.offsetM),
-            telegramImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offsetS),
-            telegramImageView.widthAnchor.constraint(equalToConstant: Constants.regularTextFieldHeight),
-            telegramImageView.heightAnchor.constraint(equalToConstant: Constants.regularTextFieldHeight),
+            telegramImageView.topAnchor.constraint(equalTo: confirmLabel.bottomAnchor, constant: Constants.offset16),
+            telegramImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset8),
+            telegramImageView.widthAnchor.constraint(equalToConstant: Constants.height50),
+            telegramImageView.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            loginCodeTextfield.topAnchor.constraint(equalTo: confirmLabel.bottomAnchor, constant: Constants.offsetM),
-            loginCodeTextfield.leadingAnchor.constraint(equalTo: telegramImageView.trailingAnchor, constant: Constants.offsetS),
-            loginCodeTextfield.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offsetS),
-            loginCodeTextfield.heightAnchor.constraint(equalToConstant: Constants.regularTextFieldHeight),
+            loginCodeTextfield.topAnchor.constraint(equalTo: confirmLabel.bottomAnchor, constant: Constants.offset16),
+            loginCodeTextfield.leadingAnchor.constraint(equalTo: telegramImageView.trailingAnchor, constant: Constants.offset8),
+            loginCodeTextfield.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            loginCodeTextfield.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            sendButton.topAnchor.constraint(equalTo: loginCodeTextfield.bottomAnchor, constant: Constants.offsetM),
+            sendButton.topAnchor.constraint(equalTo: loginCodeTextfield.bottomAnchor, constant: Constants.offset16),
             sendButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            sendButton.widthAnchor.constraint(equalToConstant: Constants.regularButtonWidth),
-            sendButton.heightAnchor.constraint(equalToConstant: Constants.regularButtonHeight)
+            sendButton.widthAnchor.constraint(equalToConstant: Constants.width160),
+            sendButton.heightAnchor.constraint(equalToConstant: Constants.height40)
             
         ])
         sendButton.makeRounded(.rectangel)

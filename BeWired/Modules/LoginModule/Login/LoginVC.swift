@@ -9,12 +9,21 @@ import UIKit
 
 final class LoginVC: UIViewController {
     
-    private var viewmodel: LoginViewModelProtocol = LoginViewModel()
+    private var viewmodel: LoginViewModelProtocol
+    
+    init(viewmodel: LoginViewModelProtocol) {
+        self.viewmodel = viewmodel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let welcomLabel: UILabel = {
         let label = UILabel()
         label.text = "Please login first"
-        label.font = UIFont.systemFont(ofSize: Constants.titleLabelSize, weight: .thin)
+        label.font = UIFont.systemFont(ofSize: Constants.size25, weight: .thin)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -67,7 +76,7 @@ final class LoginVC: UIViewController {
     private func bind() {
         viewmodel.didSetPhoneNumber = { [weak self] in
             DispatchQueue.main.async {
-                let nextVC = ConfirmationVC()
+                let nextVC = ConfirmationVC(viewmodel: ConfirmationViewModel())
                 self?.navigationController?.pushViewController(nextVC, animated: true)
             }
 
@@ -75,7 +84,7 @@ final class LoginVC: UIViewController {
         viewmodel.didReciveError = { [weak self] errorMessage in
             DispatchQueue.main.async {
                 self?.welcomLabel.text = errorMessage
-                self?.welcomLabel.font = .systemFont(ofSize: Constants.errorLabelSize)
+                self?.welcomLabel.font = .systemFont(ofSize: Constants.size12)
             }
         }
     }
@@ -90,24 +99,24 @@ final class LoginVC: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             welcomLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            welcomLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offsetS),
-            welcomLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offsetS),
-            welcomLabel.heightAnchor.constraint(equalToConstant: Constants.regularLabelHeight),
+            welcomLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset8),
+            welcomLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            welcomLabel.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            telegramImageView.topAnchor.constraint(equalTo: welcomLabel.bottomAnchor, constant: Constants.offsetM),
-            telegramImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offsetS),
-            telegramImageView.widthAnchor.constraint(equalToConstant: Constants.regularTextFieldHeight),
-            telegramImageView.heightAnchor.constraint(equalToConstant: Constants.regularTextFieldHeight),
+            telegramImageView.topAnchor.constraint(equalTo: welcomLabel.bottomAnchor, constant: Constants.offset16),
+            telegramImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset8),
+            telegramImageView.widthAnchor.constraint(equalToConstant: Constants.height50),
+            telegramImageView.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            phoneNumberTextfield.topAnchor.constraint(equalTo: welcomLabel.bottomAnchor, constant: Constants.offsetM),
-            phoneNumberTextfield.leadingAnchor.constraint(equalTo: telegramImageView.trailingAnchor, constant: Constants.offsetS),
-            phoneNumberTextfield.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offsetS),
-            phoneNumberTextfield.heightAnchor.constraint(equalToConstant: Constants.regularTextFieldHeight),
+            phoneNumberTextfield.topAnchor.constraint(equalTo: welcomLabel.bottomAnchor, constant: Constants.offset16),
+            phoneNumberTextfield.leadingAnchor.constraint(equalTo: telegramImageView.trailingAnchor, constant: Constants.offset8),
+            phoneNumberTextfield.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            phoneNumberTextfield.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            sendButton.topAnchor.constraint(equalTo: phoneNumberTextfield.bottomAnchor, constant: Constants.offsetM),
+            sendButton.topAnchor.constraint(equalTo: phoneNumberTextfield.bottomAnchor, constant: Constants.offset16),
             sendButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            sendButton.widthAnchor.constraint(equalToConstant: Constants.regularButtonWidth),
-            sendButton.heightAnchor.constraint(equalToConstant: Constants.regularButtonHeight)
+            sendButton.widthAnchor.constraint(equalToConstant: Constants.width160),
+            sendButton.heightAnchor.constraint(equalToConstant: Constants.height40)
             
         ])
         sendButton.makeRounded(.rectangel)
