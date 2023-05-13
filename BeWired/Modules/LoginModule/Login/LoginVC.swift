@@ -75,9 +75,10 @@ final class LoginVC: UIViewController {
     
     private func bind() {
         viewmodel.didSetPhoneNumber = { [weak self] in
+            guard let self else {return}
             DispatchQueue.main.async {
-                let nextVC = ConfirmationVC(viewmodel: ConfirmationViewModel())
-                self?.navigationController?.pushViewController(nextVC, animated: true)
+                let nextVC = ConfirmationVC(viewmodel: ConfirmationViewModel(auth: self.viewmodel.auth))
+                self.navigationController?.pushViewController(nextVC, animated: true)
             }
 
         }

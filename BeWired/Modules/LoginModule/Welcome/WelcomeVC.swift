@@ -93,7 +93,7 @@ final class WelcomeVC: UIViewController {
         
         viewmodel.didLogedout = { [weak self] in
             DispatchQueue.main.async {
-                let loginVC = LoginVC(viewmodel: LoginViewModel())
+                let loginVC = LoginVC(viewmodel: LoginViewModel(auth: AuthService()))
                 guard let navigationController = self?.navigationController else { return }
                 
                 UIView.transition(with: navigationController.view,

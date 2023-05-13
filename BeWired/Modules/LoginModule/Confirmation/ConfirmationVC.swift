@@ -76,9 +76,10 @@ final class ConfirmationVC: UIViewController {
     
     private func bind() {
         viewmodel.didConfirmPhoneNumber = { [weak self] in
+            guard let self else {return}
             DispatchQueue.main.async {
-                let nextVC = WelcomeVC(viewmodel: WelcomeViewModel())
-                self?.navigationController?.setViewControllers([nextVC], animated: true)
+                let nextVC = WelcomeVC(viewmodel: WelcomeViewModel(auth: self.viewmodel.auth))
+                self.navigationController?.setViewControllers([nextVC], animated: true)
             }
         }
         viewmodel.didReciveError = { [weak self] errorMessage in

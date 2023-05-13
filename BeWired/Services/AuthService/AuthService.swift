@@ -19,7 +19,6 @@ protocol AuthServiceProtocol {
 
 final class AuthService: AuthServiceProtocol {
 
-    static let shared: AuthServiceProtocol = AuthService()
     private let mapper: AuthMapperProtocol
     
     private let client: TdClientImpl
