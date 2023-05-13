@@ -15,17 +15,12 @@ protocol WelcomeViewModelProtocol {
 }
 
 final class WelcomeViewModel: WelcomeViewModelProtocol {
+    
+    private let auth: AuthServiceProtocol
+    
     var didReciveError: ((String) -> Void)?
-    
-    private let auth = AuthService.shared
-    
-    init() {
-        showCurrentUser()
-    }
-    
     var didLogedout: (() -> Void)?
     var userDidChanged: ((User) -> Void)?
-    
     private var user: User? {
         didSet {
             if let user {
@@ -36,6 +31,11 @@ final class WelcomeViewModel: WelcomeViewModelProtocol {
         }
     }
     
+    init(auth: AuthServiceProtocol) {
+        self.auth = auth
+        showCurrentUser()
+    }
+ 
     func showCurrentUser() {
         auth.getCurrentUser { [weak self] result in
             switch result {

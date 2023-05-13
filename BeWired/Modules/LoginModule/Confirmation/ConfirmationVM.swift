@@ -10,15 +10,19 @@ import Foundation
 protocol ConfirmationViewModelProtocol{
     var didConfirmPhoneNumber: (() -> Void)? {get set}
     var didReciveError: ((String) -> Void)? {get set}
+    var auth: AuthServiceProtocol {get}
     func confirmPhoneNumber(with code: String)
 }
 
 final class ConfirmationViewModel: ConfirmationViewModelProtocol {
-    private let auth: AuthServiceProtocol = AuthService.shared
+    var auth: AuthServiceProtocol
 
     var didConfirmPhoneNumber: (() -> Void)?
     var didReciveError: ((String) -> Void)?
     
+    init(auth: AuthServiceProtocol) {
+        self.auth = auth
+    }
     
     func confirmPhoneNumber(with code: String) {
         

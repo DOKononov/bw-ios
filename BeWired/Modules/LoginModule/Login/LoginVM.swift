@@ -10,14 +10,18 @@ import Foundation
 protocol LoginViewModelProtocol {
     var didSetPhoneNumber: (() -> Void)? {get set}
     var didReciveError: ((String) -> Void)? {get set}
+    var auth: AuthServiceProtocol {get}
     func setPhoneNumber(_ number: String)
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
-    private let auth: AuthServiceProtocol = AuthService.shared
-    
+    var auth: AuthServiceProtocol
     var didSetPhoneNumber: (() -> Void)?
     var didReciveError: ((String) -> Void)?
+    
+    init(auth: AuthServiceProtocol) {
+        self.auth = auth
+    }
     
     func setPhoneNumber(_ number: String) {
         auth.setPhoneNumber(phoneNumber: number) { [weak self] result in
