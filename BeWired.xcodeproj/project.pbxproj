@@ -29,6 +29,18 @@
 		40F7AFCA2A069303002EC857 /* UIView+rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFC92A069303002EC857 /* UIView+rounded.swift */; };
 		40F7AFCC2A069321002EC857 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFCB2A069321002EC857 /* Constants.swift */; };
 		40F833122A06A3E600E2CB86 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F833112A06A3E600E2CB86 /* LoginVM.swift */; };
+		ED0FFA5D2A124BDC004A8F4F /* String + Entity names.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0FFA5C2A124BDC004A8F4F /* String + Entity names.swift */; };
+		ED3A60112A1029D9003DC922 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60102A1029D9003DC922 /* UIView + Extensions.swift */; };
+		ED3A60172A102A2D003DC922 /* String + Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60162A102A2D003DC922 /* String + Request.swift */; };
+		ED3A601B2A102A7A003DC922 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A601A2A102A7A003DC922 /* UserDTO.swift */; };
+		ED3A601E2A102A95003DC922 /* SubscriptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A601D2A102A95003DC922 /* SubscriptionsModel.swift */; };
+		ED3A60212A102AD1003DC922 /* SubscriptionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60202A102AD1003DC922 /* SubscriptionsServiceProtocol.swift */; };
+		ED3A60232A102ADF003DC922 /* SubscriptionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60222A102ADF003DC922 /* SubscriptionsService.swift */; };
+		ED3A60262A102B0E003DC922 /* SubscriptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60252A102B0E003DC922 /* SubscriptionsVC.swift */; };
+		ED3A602A2A102B3B003DC922 /* UsersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60292A102B3B003DC922 /* UsersListVC.swift */; };
+		ED3A602C2A102B42003DC922 /* UsersListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A602B2A102B42003DC922 /* UsersListVM.swift */; };
+		ED3A602E2A102B50003DC922 /* UsersListVmProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A602D2A102B50003DC922 /* UsersListVmProtocol.swift */; };
+		ED3A60332A102B74003DC922 /* UsersListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60322A102B74003DC922 /* UsersListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +67,18 @@
 		40F7AFC92A069303002EC857 /* UIView+rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+rounded.swift"; sourceTree = "<group>"; };
 		40F7AFCB2A069321002EC857 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		40F833112A06A3E600E2CB86 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		ED0FFA5C2A124BDC004A8F4F /* String + Entity names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Entity names.swift"; sourceTree = "<group>"; };
+		ED3A60102A1029D9003DC922 /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
+		ED3A60162A102A2D003DC922 /* String + Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String + Request.swift"; sourceTree = "<group>"; };
+		ED3A601A2A102A7A003DC922 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		ED3A601D2A102A95003DC922 /* SubscriptionsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsModel.swift; sourceTree = "<group>"; };
+		ED3A60202A102AD1003DC922 /* SubscriptionsServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsServiceProtocol.swift; sourceTree = "<group>"; };
+		ED3A60222A102ADF003DC922 /* SubscriptionsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsService.swift; sourceTree = "<group>"; };
+		ED3A60252A102B0E003DC922 /* SubscriptionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsVC.swift; sourceTree = "<group>"; };
+		ED3A60292A102B3B003DC922 /* UsersListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVC.swift; sourceTree = "<group>"; };
+		ED3A602B2A102B42003DC922 /* UsersListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVM.swift; sourceTree = "<group>"; };
+		ED3A602D2A102B50003DC922 /* UsersListVmProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVmProtocol.swift; sourceTree = "<group>"; };
+		ED3A60322A102B74003DC922 /* UsersListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +96,7 @@
 		402ACFA92A097525006975E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				ED3A60242A102AF6003DC922 /* SubscriptionsVC */,
 				40F833102A06A38D00E2CB86 /* LoginModule */,
 			);
 			path = Modules;
@@ -80,6 +105,7 @@
 		404C326C2A0BEC4300613790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				ED3A60182A102A5D003DC922 /* NetworkModels */,
 				404C326D2A0BEC5700613790 /* User.swift */,
 			);
 			path = Models;
@@ -155,6 +181,7 @@
 		40525BA729F8488800367AD1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ED3A601F2A102AC5003DC922 /* UserSubscriptionsService */,
 				404EA6562A056B7B00CA6228 /* AuthService */,
 				40525BA929F9178700367AD1 /* Audio */,
 				40525BA829F8489400367AD1 /* CoreData */,
@@ -211,6 +238,9 @@
 			isa = PBXGroup;
 			children = (
 				40F7AFC92A069303002EC857 /* UIView+rounded.swift */,
+				ED3A60102A1029D9003DC922 /* UIView + Extensions.swift */,
+				ED3A60162A102A2D003DC922 /* String + Request.swift */,
+				ED0FFA5C2A124BDC004A8F4F /* String + Entity names.swift */,
 				40F7AFCB2A069321002EC857 /* Constants.swift */,
 			);
 			path = Extensions;
@@ -224,6 +254,76 @@
 				407E96912A07DD01008E6ACA /* Welcome */,
 			);
 			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		ED3A60182A102A5D003DC922 /* NetworkModels */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A601C2A102A81003DC922 /* SubscriptionsModel */,
+				ED3A60192A102A6E003DC922 /* UserDTO */,
+			);
+			path = NetworkModels;
+			sourceTree = "<group>";
+		};
+		ED3A60192A102A6E003DC922 /* UserDTO */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A601A2A102A7A003DC922 /* UserDTO.swift */,
+			);
+			path = UserDTO;
+			sourceTree = "<group>";
+		};
+		ED3A601C2A102A81003DC922 /* SubscriptionsModel */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A601D2A102A95003DC922 /* SubscriptionsModel.swift */,
+			);
+			path = SubscriptionsModel;
+			sourceTree = "<group>";
+		};
+		ED3A601F2A102AC5003DC922 /* UserSubscriptionsService */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A60202A102AD1003DC922 /* SubscriptionsServiceProtocol.swift */,
+				ED3A60222A102ADF003DC922 /* SubscriptionsService.swift */,
+			);
+			path = UserSubscriptionsService;
+			sourceTree = "<group>";
+		};
+		ED3A60242A102AF6003DC922 /* SubscriptionsVC */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A60272A102B12003DC922 /* UsersList */,
+				ED3A60252A102B0E003DC922 /* SubscriptionsVC.swift */,
+			);
+			path = SubscriptionsVC;
+			sourceTree = "<group>";
+		};
+		ED3A60272A102B12003DC922 /* UsersList */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A602D2A102B50003DC922 /* UsersListVmProtocol.swift */,
+				ED3A60292A102B3B003DC922 /* UsersListVC.swift */,
+				ED3A602B2A102B42003DC922 /* UsersListVM.swift */,
+				ED3A60282A102B23003DC922 /* TableView */,
+			);
+			path = UsersList;
+			sourceTree = "<group>";
+		};
+		ED3A60282A102B23003DC922 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A60312A102B5F003DC922 /* UsersListTableViewCell */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		ED3A60312A102B5F003DC922 /* UsersListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A60322A102B74003DC922 /* UsersListTableViewCell.swift */,
+			);
+			path = UsersListTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,24 +402,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED3A60112A1029D9003DC922 /* UIView + Extensions.swift in Sources */,
 				407E96952A07E062008E6ACA /* WelcomeVM.swift in Sources */,
 				40525B9229F8476000367AD1 /* TestVC.swift in Sources */,
 				407E968E2A07D2E9008E6ACA /* ConfirmationVC.swift in Sources */,
 				40F833122A06A3E600E2CB86 /* LoginVM.swift in Sources */,
+				ED3A602A2A102B3B003DC922 /* UsersListVC.swift in Sources */,
+				ED3A601B2A102A7A003DC922 /* UserDTO.swift in Sources */,
 				40525B8E29F8476000367AD1 /* AppDelegate.swift in Sources */,
+				ED0FFA5D2A124BDC004A8F4F /* String + Entity names.swift in Sources */,
+				ED3A60232A102ADF003DC922 /* SubscriptionsService.swift in Sources */,
 				40525B9829F8476000367AD1 /* BeWired.xcdatamodeld in Sources */,
+				ED3A60212A102AD1003DC922 /* SubscriptionsServiceProtocol.swift in Sources */,
 				40525B9029F8476000367AD1 /* SceneDelegate.swift in Sources */,
+				ED3A602C2A102B42003DC922 /* UsersListVM.swift in Sources */,
+				ED3A60332A102B74003DC922 /* UsersListTableViewCell.swift in Sources */,
+				ED3A60172A102A2D003DC922 /* String + Request.swift in Sources */,
 				404C32712A0BEC8A00613790 /* AuthMapper.swift in Sources */,
 				40F7AFC72A068D1D002EC857 /* LoginVC.swift in Sources */,
 				40525BAF29F91FD300367AD1 /* AudioStorage.swift in Sources */,
 				400D2C5F2A024D2E0089ED6A /* AudioRecorder.swift in Sources */,
+				ED3A60262A102B0E003DC922 /* SubscriptionsVC.swift in Sources */,
 				40F7AFCA2A069303002EC857 /* UIView+rounded.swift in Sources */,
+				ED3A601E2A102A95003DC922 /* SubscriptionsModel.swift in Sources */,
 				40F7AFC52A068BB8002EC857 /* AuthError.swift in Sources */,
 				40525BAD29F91F0D00367AD1 /* AudioPlayer.swift in Sources */,
 				407E96902A07D8AF008E6ACA /* ConfirmationVM.swift in Sources */,
 				404C326E2A0BEC5700613790 /* User.swift in Sources */,
 				404EA6582A056B8F00CA6228 /* AuthService.swift in Sources */,
 				40F7AFCC2A069321002EC857 /* Constants.swift in Sources */,
+				ED3A602E2A102B50003DC922 /* UsersListVmProtocol.swift in Sources */,
 				407E96932A07DD60008E6ACA /* WelcomeVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
