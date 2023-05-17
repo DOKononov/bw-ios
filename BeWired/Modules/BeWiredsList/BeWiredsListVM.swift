@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal enum PullStatus {
+enum PullStatus {
     case inprogress
     case done(_ count: Int)
     case empty

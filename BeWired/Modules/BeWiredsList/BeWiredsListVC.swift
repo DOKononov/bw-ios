@@ -98,15 +98,9 @@ final class BeWiredsListVC: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupLayouts()
-
-    }
-    
-    
     private func initialize() {
         addSubviews()
+        setupLayouts()
         addTargets()
         bind()
     }
