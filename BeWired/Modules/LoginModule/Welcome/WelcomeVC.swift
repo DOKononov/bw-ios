@@ -38,17 +38,26 @@ final class WelcomeVC: UIViewController {
         return label
     }()
     
-    private let userDataLabel: UILabel = {
-        let label = UILabel()
-        label.text = "???user data???"
-        label.contentMode = .top
-        label.font = UIFont.systemFont(ofSize: Constants.size18, weight: .thin)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        return label
-    }()
-    
+    // MARK: Sergey code
+       // Buttons
+       private let subscriptionsButton: UIButton = {
+           let configuartion = UIButton.Configuration.filled()
+           let button = UIButton(configuration: configuartion)
+           button.setTitle("My subscriptions", for: .normal)
+           return button
+       }()
+       private let followersButton: UIButton = {
+           let configuartion = UIButton.Configuration.filled()
+           let button = UIButton(configuration: configuartion)
+           button.setTitle("My followers", for: .normal)
+           return button
+       }()
+       private let allUsersButton: UIButton = {
+           let configuartion = UIButton.Configuration.filled()
+           let button = UIButton(configuration: configuartion)
+           button.setTitle("All users", for: .normal)
+           return button
+       }()
     private let logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Logout", for: .normal)
@@ -57,6 +66,52 @@ final class WelcomeVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+       // TextFields
+       private let userNameTextField: UITextField = {
+           let textField = UITextField()
+           textField.placeholder = "FirstName and LastName"
+           textField.isEnabled = true
+           textField.backgroundColor = .lightGray
+           textField.borderStyle = .roundedRect
+           return textField
+       }()
+       private let mobileNumberTextField: UITextField = {
+           let textField = UITextField()
+           textField.placeholder = "UserName"
+           textField.isEnabled = true
+           textField.backgroundColor = .lightGray
+           textField.borderStyle = .roundedRect
+           return textField
+       }()
+       
+       private let userIdTextField: UITextField = {
+           let textField = UITextField()
+           textField.placeholder = "UserId"
+           textField.isEnabled = true
+           textField.backgroundColor = .lightGray
+           textField.borderStyle = .roundedRect
+           textField.keyboardType = .decimalPad
+           return textField
+       }()
+       
+       // MARK: - StackViews
+       private lazy var stackViewTextFields: UIStackView = {
+           let stackView = UIStackView(arrangedSubviews: [userNameTextField, mobileNumberTextField, userIdTextField])
+           stackView.translatesAutoresizingMaskIntoConstraints = false
+           stackView.axis = .vertical
+           stackView.spacing = 16
+           stackView.distribution = .fillProportionally
+           return stackView
+       }()
+       
+       private lazy var stackViewButtons: UIStackView = {
+           let stackView = UIStackView(arrangedSubviews: [ subscriptionsButton, followersButton, allUsersButton ])
+           stackView.translatesAutoresizingMaskIntoConstraints = false
+           stackView.axis = .horizontal
+           stackView.distribution = .fillEqually
+           stackView.spacing = 4
+           return stackView
+       }()
     
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -66,9 +121,12 @@ final class WelcomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initialize()
         bind()
+        
         view.backgroundColor = .systemBackground
+        view.addTapGestureToHideKeyboard()
     }
     
     override func viewDidLayoutSubviews() {
@@ -107,16 +165,18 @@ final class WelcomeVC: UIViewController {
         
         viewmodel.didReciveError = { [weak self] errorMessage in
             DispatchQueue.main.async {
-                self?.userDataLabel.text = errorMessage
+                self?.userNameTextField.text = errorMessage
+                self?.mobileNumberTextField.text = errorMessage
+                self?.userIdTextField.text = errorMessage
             }
-            
         }
     }
     
     private func hideUI() {
         welcomeLabel.isHidden = true
         userImageView.isHidden = true
-        userDataLabel.isHidden = true
+        stackViewTextFields.isHidden = true
+        stackViewButtons.isHidden = true
         logoutButton.isHidden = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
@@ -125,15 +185,19 @@ final class WelcomeVC: UIViewController {
     private func showUI() {
         welcomeLabel.isHidden = false
         userImageView.isHidden = false
-        userDataLabel.isHidden = false
+        stackViewTextFields.isHidden = false
+        stackViewButtons.isHidden = false
         logoutButton.isHidden = false
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
     }
     
     private func showUserData(_ user: User) {
-        welcomeLabel.text = "Welcome, \(user.firstName) \(user.lastName)!"
-        userDataLabel.text = "user id: \(user.id) \n user phone number: \(user.phoneNumber)"
+
+        welcomeLabel.text = "Welcome"
+        userNameTextField.text = "\(user.firstName) \(user.lastName)"
+            userIdTextField.text = "\(user.id)"
+            mobileNumberTextField.text = "+\(user.phoneNumber)"
         
         if let data = user.profilePhotoData, let image = UIImage(data: data) {
             userImageView.image = image
@@ -142,12 +206,12 @@ final class WelcomeVC: UIViewController {
         }
     }
     
-    
     private func addSubviews() {
         view.addSubview(welcomeLabel)
         view.addSubview(logoutButton)
         view.addSubview(userImageView)
-        view.addSubview(userDataLabel)
+        view.addSubview(stackViewTextFields)
+        view.addSubview(stackViewButtons)
         view.addSubview(activityIndicator)
     }
     
@@ -163,12 +227,14 @@ final class WelcomeVC: UIViewController {
             welcomeLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
             welcomeLabel.heightAnchor.constraint(equalToConstant: Constants.height50),
             
-            userDataLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: Constants.offset8),
-            userDataLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset8),
-            userDataLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
-            userDataLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.height50),
+            stackViewTextFields.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: Constants.offset8),
+            stackViewTextFields.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.offset16),
+            stackViewTextFields.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.offset16),
+            //
+            stackViewButtons.topAnchor.constraint(equalTo: stackViewTextFields.bottomAnchor, constant: Constants.offset8),
+            stackViewButtons.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.offset16),
+            stackViewButtons.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.offset16),
             
-            logoutButton.topAnchor.constraint(greaterThanOrEqualTo: userDataLabel.bottomAnchor, constant: Constants.offset8),
             logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoutButton.widthAnchor.constraint(equalToConstant: Constants.width160),
             logoutButton.heightAnchor.constraint(equalToConstant: Constants.height40),
@@ -182,6 +248,9 @@ final class WelcomeVC: UIViewController {
     }
     
     private func addTargets() {
+        subscriptionsButton.addTarget(self, action: #selector(openUsersListVC(sender: )), for: .touchUpInside)
+        followersButton.addTarget(self, action: #selector(openUsersListVC(sender: )), for: .touchUpInside)
+        allUsersButton.addTarget(self, action: #selector(openUsersListVC(sender: )), for: .touchUpInside)
         logoutButton.addTarget(self, action: #selector(logoutButtonDidTapped), for: .touchUpInside)
     }
     
@@ -189,3 +258,35 @@ final class WelcomeVC: UIViewController {
         viewmodel.logout()
     }
 }
+
+// MARK: Migration views from SubscriptionsVc
+extension WelcomeVC {
+    // Open Users List action
+    @objc func openUsersListVC(sender: UIButton) {
+        
+        // #1 Create next vc
+        let nextVc = UsersListVC(usersListVM: UsersListVM(getSubscriptionService: SubscriptionsService()))
+        
+        // #2 Guard userID field
+        guard let userId = userIdTextField.text,
+              userIdTextField.text != "" else {
+            return
+        }
+        nextVc.userId = Int64(userId)
+        
+        // #3 Switch sender for understanding URLRequest
+        switch sender {
+        case subscriptionsButton:
+            nextVc.title = String.SubscriptionListType.subscriptions
+        case followersButton:
+            nextVc.title = String.SubscriptionListType.followers
+        case allUsersButton:
+            nextVc.title = String.SubscriptionListType.allUsers
+        default: break
+        }
+        // Push VC
+        navigationController?.pushViewController(nextVc, animated: true)
+    }
+}
+
+
