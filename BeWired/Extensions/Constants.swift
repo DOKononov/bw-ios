@@ -21,4 +21,5 @@ enum Constants {
     // MARK: - Offset
     static let offset8: CGFloat = 8
     static let offset16: CGFloat = 16
+    static let offset32: CGFloat = 32
 }

@@ -18,6 +18,15 @@ final class UsersListVC: UIViewController {
         return tableView
     }()
     
+    private var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.startAnimating()
+        indicator.isHidden = false
+        return indicator
+    }()
+
+    
     // MARK: - Init
     init(usersListVM: UsersListVmProtocol) {
         self.usersListVM = usersListVM
@@ -44,7 +53,17 @@ final class UsersListVC: UIViewController {
         // 5
         usersListVM.update = {
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
                 self.tableView.reloadData()
+                
+            }
+        }
+        //
+        usersListVM.updateError = {
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             }
         }
     }
@@ -59,7 +78,7 @@ private extension UsersListVC {
     
     func addSubview() {
         view.addSubview(tableView)
-
+        tableView.addSubview(activityIndicator)
     }
 }
 
@@ -70,7 +89,10 @@ private extension UsersListVC {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            //
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }
@@ -82,31 +104,36 @@ extension UsersListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(UsersListTableViewCell.self)", for: indexPath) as? UsersListTableViewCell
         cell?.setUserListCell(model: usersListVM.usersListArray[indexPath.row])
+        
         return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
         // #1
+        tableView.deselectRow(at: indexPath, animated: true)
+        // #2
         guard let userId = userId,
               let title = title,
               title == String.SubscriptionListType.allUsers else {
             return
         }
-        // #2
+        // #3
         usersListVM.updateSubscriptions(userId: userId,
                                         indexPath: indexPath.row,
                                         screenTitle: title)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
         title == String.SubscriptionListType.allUsers ? false : true
+        
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         // #1
         guard editingStyle == .delete,
               let userId = userId,
@@ -117,5 +144,6 @@ extension UsersListVC: UITableViewDataSource, UITableViewDelegate {
         usersListVM.updateSubscriptions(userId: userId, indexPath: indexPath.row, screenTitle: title)
             // #3
         tableView.deleteRows(at: [indexPath], with: .top)
+        
     }
 }

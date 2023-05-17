@@ -36,7 +36,6 @@
 		ED3A601E2A102A95003DC922 /* SubscriptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A601D2A102A95003DC922 /* SubscriptionsModel.swift */; };
 		ED3A60212A102AD1003DC922 /* SubscriptionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60202A102AD1003DC922 /* SubscriptionsServiceProtocol.swift */; };
 		ED3A60232A102ADF003DC922 /* SubscriptionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60222A102ADF003DC922 /* SubscriptionsService.swift */; };
-		ED3A60262A102B0E003DC922 /* SubscriptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60252A102B0E003DC922 /* SubscriptionsVC.swift */; };
 		ED3A602A2A102B3B003DC922 /* UsersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A60292A102B3B003DC922 /* UsersListVC.swift */; };
 		ED3A602C2A102B42003DC922 /* UsersListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A602B2A102B42003DC922 /* UsersListVM.swift */; };
 		ED3A602E2A102B50003DC922 /* UsersListVmProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3A602D2A102B50003DC922 /* UsersListVmProtocol.swift */; };
@@ -74,7 +73,6 @@
 		ED3A601D2A102A95003DC922 /* SubscriptionsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsModel.swift; sourceTree = "<group>"; };
 		ED3A60202A102AD1003DC922 /* SubscriptionsServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsServiceProtocol.swift; sourceTree = "<group>"; };
 		ED3A60222A102ADF003DC922 /* SubscriptionsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsService.swift; sourceTree = "<group>"; };
-		ED3A60252A102B0E003DC922 /* SubscriptionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsVC.swift; sourceTree = "<group>"; };
 		ED3A60292A102B3B003DC922 /* UsersListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVC.swift; sourceTree = "<group>"; };
 		ED3A602B2A102B42003DC922 /* UsersListVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVM.swift; sourceTree = "<group>"; };
 		ED3A602D2A102B50003DC922 /* UsersListVmProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListVmProtocol.swift; sourceTree = "<group>"; };
@@ -96,7 +94,7 @@
 		402ACFA92A097525006975E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				ED3A60242A102AF6003DC922 /* SubscriptionsVC */,
+				ED3A60272A102B12003DC922 /* UsersList */,
 				40F833102A06A38D00E2CB86 /* LoginModule */,
 			);
 			path = Modules;
@@ -290,22 +288,13 @@
 			path = UserSubscriptionsService;
 			sourceTree = "<group>";
 		};
-		ED3A60242A102AF6003DC922 /* SubscriptionsVC */ = {
-			isa = PBXGroup;
-			children = (
-				ED3A60272A102B12003DC922 /* UsersList */,
-				ED3A60252A102B0E003DC922 /* SubscriptionsVC.swift */,
-			);
-			path = SubscriptionsVC;
-			sourceTree = "<group>";
-		};
 		ED3A60272A102B12003DC922 /* UsersList */ = {
 			isa = PBXGroup;
 			children = (
+				ED3A60282A102B23003DC922 /* TableView */,
 				ED3A602D2A102B50003DC922 /* UsersListVmProtocol.swift */,
 				ED3A60292A102B3B003DC922 /* UsersListVC.swift */,
 				ED3A602B2A102B42003DC922 /* UsersListVM.swift */,
-				ED3A60282A102B23003DC922 /* TableView */,
 			);
 			path = UsersList;
 			sourceTree = "<group>";
@@ -422,7 +411,6 @@
 				40F7AFC72A068D1D002EC857 /* LoginVC.swift in Sources */,
 				40525BAF29F91FD300367AD1 /* AudioStorage.swift in Sources */,
 				400D2C5F2A024D2E0089ED6A /* AudioRecorder.swift in Sources */,
-				ED3A60262A102B0E003DC922 /* SubscriptionsVC.swift in Sources */,
 				40F7AFCA2A069303002EC857 /* UIView+rounded.swift in Sources */,
 				ED3A601E2A102A95003DC922 /* SubscriptionsModel.swift in Sources */,
 				40F7AFC52A068BB8002EC857 /* AuthError.swift in Sources */,
