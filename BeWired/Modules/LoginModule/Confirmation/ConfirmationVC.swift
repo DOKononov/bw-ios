@@ -78,7 +78,7 @@ final class ConfirmationVC: UIViewController {
         viewmodel.didConfirmPhoneNumber = { [weak self] in
             guard let self else {return}
             DispatchQueue.main.async {
-                let nextVC = WelcomeVC(viewmodel: WelcomeViewModel(auth: self.viewmodel.auth))
+                let nextVC = MainVC(viewmodel: MainVM(auth: self.viewmodel.auth))
                 self.navigationController?.setViewControllers([nextVC], animated: true)
             }
         }

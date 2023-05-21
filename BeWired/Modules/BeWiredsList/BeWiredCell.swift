@@ -14,7 +14,7 @@ final class BeWiredCell: UITableViewCell {
         content.image = UIImage(named: "tg")
         content.imageProperties.cornerRadius = self.bounds.height / 2
         content.text = beWired.user
-        backgroundView?.alpha = 0
+        self.backgroundColor = .secondarySystemBackground
         let dateText = beWired.date.formatDateToString()
         let durationText = beWired.duration.formatTimeIntervalToString()
         content.secondaryText = "Release Date: \(dateText), duration: \(durationText)"

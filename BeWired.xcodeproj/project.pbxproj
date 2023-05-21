@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4002D4692A19176E005F3DEA /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4002D4682A19176E005F3DEA /* UIViewController+Alert.swift */; };
+		4002D46B2A1919C9005F3DEA /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4002D46A2A1919C9005F3DEA /* RecordCell.swift */; };
 		400D2C5F2A024D2E0089ED6A /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */; };
-		401441C02A11057300F7B508 /* BeWiredsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441BF2A11057300F7B508 /* BeWiredsListVC.swift */; };
-		401441C22A11059800F7B508 /* BeWiredsListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441C12A11059800F7B508 /* BeWiredsListVM.swift */; };
+		401441C02A11057300F7B508 /* BeWiredsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441BF2A11057300F7B508 /* BeWiredsVC.swift */; };
+		401441C22A11059800F7B508 /* BeWiredsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441C12A11059800F7B508 /* BeWiredsVM.swift */; };
 		401441C42A11085200F7B508 /* BeWiredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441C32A11085200F7B508 /* BeWiredCell.swift */; };
 		401441C62A110BB500F7B508 /* BeWiredTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441C52A110BB500F7B508 /* BeWiredTest.swift */; };
 		401441C82A11163B00F7B508 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441C72A11163B00F7B508 /* Date+String.swift */; };
@@ -29,8 +31,11 @@
 		407AD7EF2A040FEE000054F2 /* TDLibKit in Frameworks */ = {isa = PBXBuildFile; productRef = 407AD7EE2A040FEE000054F2 /* TDLibKit */; };
 		407E968E2A07D2E9008E6ACA /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E968D2A07D2E9008E6ACA /* ConfirmationVC.swift */; };
 		407E96902A07D8AF008E6ACA /* ConfirmationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E968F2A07D8AF008E6ACA /* ConfirmationVM.swift */; };
-		407E96932A07DD60008E6ACA /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96922A07DD60008E6ACA /* WelcomeVC.swift */; };
-		407E96952A07E062008E6ACA /* WelcomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96942A07E062008E6ACA /* WelcomeVM.swift */; };
+		407E96932A07DD60008E6ACA /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96922A07DD60008E6ACA /* MainVC.swift */; };
+		407E96952A07E062008E6ACA /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96942A07E062008E6ACA /* MainVM.swift */; };
+		409530AC2A18E36900A696B6 /* RecordsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409530AB2A18E36900A696B6 /* RecordsVC.swift */; };
+		409530AE2A18E37200A696B6 /* RecordsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409530AD2A18E37200A696B6 /* RecordsVM.swift */; };
+		40D3DB5B2A168E35001D5FD5 /* AudioResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D3DB5A2A168E35001D5FD5 /* AudioResult.swift */; };
 		40F7AFC52A068BB8002EC857 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFC42A068BB8002EC857 /* AuthError.swift */; };
 		40F7AFC72A068D1D002EC857 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFC62A068D1D002EC857 /* LoginVC.swift */; };
 		40F7AFCA2A069303002EC857 /* UIView+rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7AFC92A069303002EC857 /* UIView+rounded.swift */; };
@@ -50,9 +55,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4002D4682A19176E005F3DEA /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		4002D46A2A1919C9005F3DEA /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
 		400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
-		401441BF2A11057300F7B508 /* BeWiredsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeWiredsListVC.swift; sourceTree = "<group>"; };
-		401441C12A11059800F7B508 /* BeWiredsListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeWiredsListVM.swift; sourceTree = "<group>"; };
+		401441BF2A11057300F7B508 /* BeWiredsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeWiredsVC.swift; sourceTree = "<group>"; };
+		401441C12A11059800F7B508 /* BeWiredsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeWiredsVM.swift; sourceTree = "<group>"; };
 		401441C32A11085200F7B508 /* BeWiredCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeWiredCell.swift; sourceTree = "<group>"; };
 		401441C52A110BB500F7B508 /* BeWiredTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeWiredTest.swift; sourceTree = "<group>"; };
 		401441C72A11163B00F7B508 /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
@@ -73,8 +80,11 @@
 		40525BAE29F91FD300367AD1 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		407E968D2A07D2E9008E6ACA /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		407E968F2A07D8AF008E6ACA /* ConfirmationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVM.swift; sourceTree = "<group>"; };
-		407E96922A07DD60008E6ACA /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
-		407E96942A07E062008E6ACA /* WelcomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVM.swift; sourceTree = "<group>"; };
+		407E96922A07DD60008E6ACA /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		407E96942A07E062008E6ACA /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
+		409530AB2A18E36900A696B6 /* RecordsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsVC.swift; sourceTree = "<group>"; };
+		409530AD2A18E37200A696B6 /* RecordsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsVM.swift; sourceTree = "<group>"; };
+		40D3DB5A2A168E35001D5FD5 /* AudioResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioResult.swift; sourceTree = "<group>"; };
 		40F7AFC42A068BB8002EC857 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		40F7AFC62A068D1D002EC857 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		40F7AFC92A069303002EC857 /* UIView+rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+rounded.swift"; sourceTree = "<group>"; };
@@ -109,8 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				401441C32A11085200F7B508 /* BeWiredCell.swift */,
-				401441BF2A11057300F7B508 /* BeWiredsListVC.swift */,
-				401441C12A11059800F7B508 /* BeWiredsListVM.swift */,
+				401441BF2A11057300F7B508 /* BeWiredsVC.swift */,
+				401441C12A11059800F7B508 /* BeWiredsVM.swift */,
 			);
 			path = BeWiredsList;
 			sourceTree = "<group>";
@@ -118,8 +128,10 @@
 		402ACFA92A097525006975E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				409530AA2A18E34300A696B6 /* Records */,
 				401441BE2A11052B00F7B508 /* BeWiredsList */,
 				ED3A60272A102B12003DC922 /* UsersList */,
+				407E96912A07DD01008E6ACA /* Main */,
 				40F833102A06A38D00E2CB86 /* LoginModule */,
 			);
 			path = Modules;
@@ -228,17 +240,28 @@
 				400D2C5E2A024D2E0089ED6A /* AudioRecorder.swift */,
 				40525BAC29F91F0D00367AD1 /* AudioPlayer.swift */,
 				40525BAE29F91FD300367AD1 /* AudioStorage.swift */,
+				40D3DB5A2A168E35001D5FD5 /* AudioResult.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
 		};
-		407E96912A07DD01008E6ACA /* Welcome */ = {
+		407E96912A07DD01008E6ACA /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				407E96922A07DD60008E6ACA /* WelcomeVC.swift */,
-				407E96942A07E062008E6ACA /* WelcomeVM.swift */,
+				407E96922A07DD60008E6ACA /* MainVC.swift */,
+				407E96942A07E062008E6ACA /* MainVM.swift */,
 			);
-			path = Welcome;
+			path = Main;
+			sourceTree = "<group>";
+		};
+		409530AA2A18E34300A696B6 /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				4002D46A2A1919C9005F3DEA /* RecordCell.swift */,
+				409530AB2A18E36900A696B6 /* RecordsVC.swift */,
+				409530AD2A18E37200A696B6 /* RecordsVM.swift */,
+			);
+			path = Records;
 			sourceTree = "<group>";
 		};
 		40F5C7132A0797800025257E /* Login */ = {
@@ -263,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				40F7AFC92A069303002EC857 /* UIView+rounded.swift */,
+				4002D4682A19176E005F3DEA /* UIViewController+Alert.swift */,
 				ED3A60102A1029D9003DC922 /* UIView + Extensions.swift */,
 				ED3A60162A102A2D003DC922 /* String + Request.swift */,
 				ED0FFA5C2A124BDC004A8F4F /* String + Entity names.swift */,
@@ -278,7 +302,6 @@
 			children = (
 				40F5C7132A0797800025257E /* Login */,
 				40F5C7142A07978C0025257E /* Confirmation */,
-				407E96912A07DD01008E6ACA /* Welcome */,
 			);
 			path = LoginModule;
 			sourceTree = "<group>";
@@ -420,17 +443,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				409530AC2A18E36900A696B6 /* RecordsVC.swift in Sources */,
 				ED3A60112A1029D9003DC922 /* UIView + Extensions.swift in Sources */,
-				407E96952A07E062008E6ACA /* WelcomeVM.swift in Sources */,
-				401441C02A11057300F7B508 /* BeWiredsListVC.swift in Sources */,
+				4002D4692A19176E005F3DEA /* UIViewController+Alert.swift in Sources */,
+				407E96952A07E062008E6ACA /* MainVM.swift in Sources */,
+				401441C02A11057300F7B508 /* BeWiredsVC.swift in Sources */,
 				40525B9229F8476000367AD1 /* TestVC.swift in Sources */,
 				407E968E2A07D2E9008E6ACA /* ConfirmationVC.swift in Sources */,
 				40F833122A06A3E600E2CB86 /* LoginVM.swift in Sources */,
 				ED3A602A2A102B3B003DC922 /* UsersListVC.swift in Sources */,
 				ED3A601B2A102A7A003DC922 /* UserDTO.swift in Sources */,
+				4002D46B2A1919C9005F3DEA /* RecordCell.swift in Sources */,
 				40525B8E29F8476000367AD1 /* AppDelegate.swift in Sources */,
 				401441C62A110BB500F7B508 /* BeWiredTest.swift in Sources */,
-				401441C22A11059800F7B508 /* BeWiredsListVM.swift in Sources */,
+				401441C22A11059800F7B508 /* BeWiredsVM.swift in Sources */,
 				401441CA2A11187D00F7B508 /* TimeInterval+String.swift in Sources */,
 				ED0FFA5D2A124BDC004A8F4F /* String + Entity names.swift in Sources */,
 				ED3A60232A102ADF003DC922 /* SubscriptionsService.swift in Sources */,
@@ -449,6 +475,7 @@
 				40F7AFCA2A069303002EC857 /* UIView+rounded.swift in Sources */,
 				ED3A601E2A102A95003DC922 /* SubscriptionsModel.swift in Sources */,
 				40F7AFC52A068BB8002EC857 /* AuthError.swift in Sources */,
+				40D3DB5B2A168E35001D5FD5 /* AudioResult.swift in Sources */,
 				40525BAD29F91F0D00367AD1 /* AudioPlayer.swift in Sources */,
 				407E96902A07D8AF008E6ACA /* ConfirmationVM.swift in Sources */,
 				404C326E2A0BEC5700613790 /* User.swift in Sources */,
@@ -456,7 +483,8 @@
 				404EA6582A056B8F00CA6228 /* AuthService.swift in Sources */,
 				40F7AFCC2A069321002EC857 /* Constants.swift in Sources */,
 				ED3A602E2A102B50003DC922 /* UsersListVmProtocol.swift in Sources */,
-				407E96932A07DD60008E6ACA /* WelcomeVC.swift in Sources */,
+				407E96932A07DD60008E6ACA /* MainVC.swift in Sources */,
+				409530AE2A18E37200A696B6 /* RecordsVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

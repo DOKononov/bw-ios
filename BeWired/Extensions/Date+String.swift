@@ -13,4 +13,12 @@ extension Date {
         dateFormater.dateFormat = "dd.MM.yyyy"
         return dateFormater.string(from: self)
     }
+    
+    func convertedToIdString() -> String {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "_yyyy.MM.dd_HH:mm:ss"
+        let dateString = dateFormatter.string(from: currentDate)
+        return dateString
+    }
 }
