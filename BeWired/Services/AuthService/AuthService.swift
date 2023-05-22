@@ -15,7 +15,6 @@ protocol AuthServiceProtocol {
     func confirmPhoneNumber(code: String?, completion: @escaping AuthCompletion<Void>)
     func logout(completion: @escaping AuthCompletion<Void>)
     func getCurrentUser(completion: @escaping AuthCompletion<User>)
-    func getAuthorizationState(complition: @escaping AuthCompletion<AuthorizationState>)
 }
 
 final class AuthService: AuthServiceProtocol {
@@ -47,7 +46,6 @@ final class AuthService: AuthServiceProtocol {
         }
     }
     
-
    
     func setPhoneNumber(phoneNumber: String, completion: @escaping AuthCompletion<Void>) {
         Task.init {
@@ -159,21 +157,9 @@ private extension AuthService {
             }
         }
     }
-}
-
-// MARK: Get Authorization state
-
-extension AuthService {
-    
-    func getAuthorizationState(complition: @escaping AuthCompletion<AuthorizationState>) {
-        Task.init() {
-            do {
-                let state = try await api.getAuthorizationState()
-                complition(.success(state))
-            } catch {
-                complition(.failure(.autorizationStateError))
-            }
-        }
-    }
     
 }
+
+
+
+

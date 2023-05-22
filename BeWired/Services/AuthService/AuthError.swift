@@ -13,5 +13,4 @@ enum AuthError: Error {
     case logoutError
     case getCurrentUserError
     case setLogVerbosityLevelError
-    case autorizationStateError
 }
