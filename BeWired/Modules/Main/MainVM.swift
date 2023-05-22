@@ -7,21 +7,22 @@
 
 import Foundation
 
-protocol WelcomeViewModelProtocol {
+protocol MainVMProtocol {
     func logout()
     var userDidChanged: ((User) -> Void)? {get set}
     var didReciveError: ((String) -> Void)? {get set}
     var didLogedout: (() -> Void)? {get set}
+    var user: User? {get}
 }
 
-final class WelcomeViewModel: WelcomeViewModelProtocol {
+final class MainVM: MainVMProtocol {
     
     private let auth: AuthServiceProtocol
     
     var didReciveError: ((String) -> Void)?
     var didLogedout: (() -> Void)?
     var userDidChanged: ((User) -> Void)?
-    private var user: User? {
+    var user: User? {
         didSet {
             if let user {
                 userDidChanged?(user)

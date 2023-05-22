@@ -14,16 +14,11 @@ final class TestVC: UIViewController {
         initialize()
         view.backgroundColor = .systemBackground
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupLayout()
-    }
-    
-    
+
     private func initialize() {
         addSubviews()
         addTargets()
+        setupLayout()
     }
     
     private func addSubviews() {

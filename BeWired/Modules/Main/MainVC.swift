@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class WelcomeVC: UIViewController {
+final class MainVC: UIViewController {
     
-    private var viewmodel: WelcomeViewModelProtocol
+    private var viewmodel: MainVMProtocol
     
-    init(viewmodel: WelcomeViewModelProtocol) {
+    init(viewmodel: MainVMProtocol) {
         self.viewmodel = viewmodel
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,25 +39,42 @@ final class WelcomeVC: UIViewController {
     }()
     
     // MARK: Sergey code
-       // Buttons
-       private let subscriptionsButton: UIButton = {
-           let configuartion = UIButton.Configuration.filled()
-           let button = UIButton(configuration: configuartion)
-           button.setTitle("My subscriptions", for: .normal)
-           return button
-       }()
-       private let followersButton: UIButton = {
-           let configuartion = UIButton.Configuration.filled()
-           let button = UIButton(configuration: configuartion)
-           button.setTitle("My followers", for: .normal)
-           return button
-       }()
-       private let allUsersButton: UIButton = {
-           let configuartion = UIButton.Configuration.filled()
-           let button = UIButton(configuration: configuartion)
-           button.setTitle("All users", for: .normal)
-           return button
-       }()
+    // Buttons
+    private let subscriptionsButton: UIButton = {
+        let configuartion = UIButton.Configuration.filled()
+        let button = UIButton(configuration: configuartion)
+        button.setTitle("My subscriptions", for: .normal)
+        return button
+    }()
+    private let followersButton: UIButton = {
+        let configuartion = UIButton.Configuration.filled()
+        let button = UIButton(configuration: configuartion)
+        button.setTitle("My followers", for: .normal)
+        return button
+    }()
+    private let allUsersButton: UIButton = {
+        let configuartion = UIButton.Configuration.filled()
+        let button = UIButton(configuration: configuartion)
+        button.setTitle("All users", for: .normal)
+        return button
+    }()
+    
+    private let voiceRecordsButton: UIButton = {
+        let configuartion = UIButton.Configuration.filled()
+        let button = UIButton(configuration: configuartion)
+        button.setTitle("Voice Records", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private let beWiredsButton: UIButton = {
+        let configuartion = UIButton.Configuration.filled()
+        let button = UIButton(configuration: configuartion)
+        button.setTitle("BeWireds", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Logout", for: .normal)
@@ -66,52 +83,52 @@ final class WelcomeVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-       // TextFields
-       private let userNameTextField: UITextField = {
-           let textField = UITextField()
-           textField.placeholder = "FirstName and LastName"
-           textField.isEnabled = true
-           textField.backgroundColor = .lightGray
-           textField.borderStyle = .roundedRect
-           return textField
-       }()
-       private let mobileNumberTextField: UITextField = {
-           let textField = UITextField()
-           textField.placeholder = "UserName"
-           textField.isEnabled = true
-           textField.backgroundColor = .lightGray
-           textField.borderStyle = .roundedRect
-           return textField
-       }()
-       
-       private let userIdTextField: UITextField = {
-           let textField = UITextField()
-           textField.placeholder = "UserId"
-           textField.isEnabled = true
-           textField.backgroundColor = .lightGray
-           textField.borderStyle = .roundedRect
-           textField.keyboardType = .decimalPad
-           return textField
-       }()
-       
-       // MARK: - StackViews
-       private lazy var stackViewTextFields: UIStackView = {
-           let stackView = UIStackView(arrangedSubviews: [userNameTextField, mobileNumberTextField, userIdTextField])
-           stackView.translatesAutoresizingMaskIntoConstraints = false
-           stackView.axis = .vertical
-           stackView.spacing = 16
-           stackView.distribution = .fillProportionally
-           return stackView
-       }()
-       
-       private lazy var stackViewButtons: UIStackView = {
-           let stackView = UIStackView(arrangedSubviews: [ subscriptionsButton, followersButton, allUsersButton ])
-           stackView.translatesAutoresizingMaskIntoConstraints = false
-           stackView.axis = .horizontal
-           stackView.distribution = .fillEqually
-           stackView.spacing = 4
-           return stackView
-       }()
+    // TextFields
+    private let userNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "FirstName and LastName"
+        textField.isEnabled = true
+        textField.backgroundColor = .lightGray
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+    private let mobileNumberTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "UserName"
+        textField.isEnabled = true
+        textField.backgroundColor = .lightGray
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+    
+    private let userIdTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "UserId"
+        textField.isEnabled = true
+        textField.backgroundColor = .lightGray
+        textField.borderStyle = .roundedRect
+        textField.keyboardType = .decimalPad
+        return textField
+    }()
+    
+    // MARK: - StackViews
+    private lazy var stackViewTextFields: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [userNameTextField, mobileNumberTextField, userIdTextField])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.distribution = .fillProportionally
+        return stackView
+    }()
+    
+    private lazy var stackViewButtons: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [ subscriptionsButton, followersButton, allUsersButton, voiceRecordsButton, beWiredsButton ])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 4
+        return stackView
+    }()
     
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -193,11 +210,11 @@ final class WelcomeVC: UIViewController {
     }
     
     private func showUserData(_ user: User) {
-
+        
         welcomeLabel.text = "Welcome"
         userNameTextField.text = "\(user.firstName) \(user.lastName)"
-            userIdTextField.text = "\(user.id)"
-            mobileNumberTextField.text = "+\(user.phoneNumber)"
+        userIdTextField.text = "\(user.id)"
+        mobileNumberTextField.text = "+\(user.phoneNumber)"
         
         if let data = user.profilePhotoData, let image = UIImage(data: data) {
             userImageView.image = image
@@ -252,15 +269,36 @@ final class WelcomeVC: UIViewController {
         followersButton.addTarget(self, action: #selector(openUsersListVC(sender: )), for: .touchUpInside)
         allUsersButton.addTarget(self, action: #selector(openUsersListVC(sender: )), for: .touchUpInside)
         logoutButton.addTarget(self, action: #selector(logoutButtonDidTapped), for: .touchUpInside)
+        voiceRecordsButton.addTarget(self, action: #selector(voiceRecordsButtonDidTapped), for: .touchUpInside)
+        beWiredsButton.addTarget(self, action: #selector(beWiredsButtonDidTapped), for: .touchUpInside)
     }
     
     @objc private func logoutButtonDidTapped() {
         viewmodel.logout()
     }
+    
+    @objc private func voiceRecordsButtonDidTapped() {
+        guard let user = viewmodel.user  else {
+            self.showErrorAlert(for: "user = nil")
+            return
+        }
+        let nextVC = RecordsVC(viewmodel: RecordsVM(user: user))
+        self.navigationController?.pushViewController(nextVC, animated: true)
+        
+    }
+    
+    @objc private func beWiredsButtonDidTapped() {
+        guard (viewmodel.user) != nil else {
+            self.showErrorAlert(for: "user = nil")
+            return
+        }
+        let nextVC = BeWiredsVC(viewModel: BeWiredsVM(pullService: FakePullService()))
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
 }
 
 // MARK: Migration views from SubscriptionsVc
-extension WelcomeVC {
+extension MainVC {
     // Open Users List action
     @objc func openUsersListVC(sender: UIButton) {
         

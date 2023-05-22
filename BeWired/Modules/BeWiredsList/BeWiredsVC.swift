@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class BeWiredsListVC: UIViewController {
+final class BeWiredsVC: UIViewController {
     
-    private var viewModel: BeWiredsListProtocol
+    private var viewModel: BeWiredsVMProtocol
     
     private let beWiredsTitle: UILabel = {
         let label = UILabel()
@@ -23,6 +23,7 @@ final class BeWiredsListVC: UIViewController {
         let table = UITableView()
         table.backgroundColor = .secondarySystemBackground
         table.register(BeWiredCell.self, forCellReuseIdentifier: "\(BeWiredCell.self)")
+        table.makeRounded(10)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -48,6 +49,7 @@ final class BeWiredsListVC: UIViewController {
         view.isScrollEnabled = true
         view.showsHorizontalScrollIndicator = false
         view.backgroundColor = .secondarySystemBackground
+        view.makeRounded(10)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -80,7 +82,7 @@ final class BeWiredsListVC: UIViewController {
         return button
     }()
     
-    init(viewModel: BeWiredsListProtocol) {
+    init(viewModel: BeWiredsVMProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -174,7 +176,7 @@ final class BeWiredsListVC: UIViewController {
 }
 
 //MARK: -TableView
-extension BeWiredsListVC: UITableViewDelegate, UITableViewDataSource {
+extension BeWiredsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.beWireds.count
     }
@@ -206,7 +208,7 @@ extension BeWiredsListVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: -SetupLayouts
-extension BeWiredsListVC {
+extension BeWiredsVC {
     private func setupLayouts() {
         NSLayoutConstraint.activate([
             
@@ -255,9 +257,5 @@ extension BeWiredsListVC {
         ])
         pullButton.makeRounded(.rectangel)
         playButton.makeRounded(.circle)
-        descriptionScrollView.makeRounded(10)
-        beWiredsTableView.makeRounded(10)
-
-        
     }
 }

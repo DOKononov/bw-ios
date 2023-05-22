@@ -13,7 +13,7 @@ enum PullStatus {
     case empty
 }
 
-protocol BeWiredsListProtocol {
+protocol BeWiredsVMProtocol {
     var beWireds: [BeWiredTest] {get set}
     var beWiredsDidUpadete: (()-> Void)? {get set}
     var pullStatusDidUpdate: (() -> Void)? {get set}
@@ -21,7 +21,7 @@ protocol BeWiredsListProtocol {
     func pullDidPressed()
 }
 
-final class BeWiredsListViewModel: BeWiredsListProtocol {
+final class BeWiredsVM: BeWiredsVMProtocol {
     var pullStatusDidUpdate: (() -> Void)?
     
     var pullStatus: PullStatus? {
