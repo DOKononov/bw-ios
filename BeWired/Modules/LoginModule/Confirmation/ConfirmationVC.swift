@@ -61,6 +61,7 @@ final class ConfirmationVC: UIViewController {
         bind()
         view.backgroundColor = .systemBackground
         loginCodeTextfield.becomeFirstResponder()
+        self.navigationItem.hidesBackButton = true
     }
     
     override func viewDidLayoutSubviews() {
