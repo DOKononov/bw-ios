@@ -79,15 +79,15 @@ final class RecordsVM: RecordsVMProtocol {
     }
     
     func playDidTapped() {
-        if playInProgress {
-            audioPlayer.stop()
-        } else {
-            guard let selectedRecordUrl else {
-                didReciveError?("selectedRecordUrl Error")
-                return
-            }
-            audioPlayer.play(record: selectedRecordUrl) { [weak self] in self?.handleResult(result: $0)}
+        guard let selectedRecordUrl else {
+            didReciveError?("selectedRecordUrl Error")
+            return
         }
+        
+        playInProgress ?
+        audioPlayer.stop() :
+        audioPlayer.play(record: selectedRecordUrl) { [weak self] in self?.handleResult(result: $0)}
+    
         playInProgress = !playInProgress
     }
     

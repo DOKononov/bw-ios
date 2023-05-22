@@ -293,7 +293,7 @@ final class MainVC: UIViewController {
             return
         }
         let nextVC = BeWiredsVC(viewModel: BeWiredsVM(pullService: FakePullService()))
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
