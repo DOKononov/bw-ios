@@ -61,6 +61,7 @@ final class ConfirmationVC: UIViewController {
         bind()
         view.backgroundColor = .systemBackground
         loginCodeTextfield.becomeFirstResponder()
+        self.navigationItem.hidesBackButton = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -78,7 +79,7 @@ final class ConfirmationVC: UIViewController {
         viewmodel.didConfirmPhoneNumber = { [weak self] in
             guard let self else {return}
             DispatchQueue.main.async {
-                let nextVC = WelcomeVC(viewmodel: WelcomeViewModel(auth: self.viewmodel.auth))
+                let nextVC = MainVC(viewmodel: MainViewModel(auth: self.viewmodel.auth))
                 self.navigationController?.setViewControllers([nextVC], animated: true)
             }
         }
