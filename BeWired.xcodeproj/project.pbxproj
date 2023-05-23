@@ -17,6 +17,8 @@
 		401441C82A11163B00F7B508 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441C72A11163B00F7B508 /* Date+String.swift */; };
 		401441CA2A11187D00F7B508 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441C92A11187D00F7B508 /* TimeInterval+String.swift */; };
 		401441CC2A12511700F7B508 /* FakePullService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401441CB2A12511700F7B508 /* FakePullService.swift */; };
+		401716442A1D27BC00B37508 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401716422A1D27BC00B37508 /* MainVM.swift */; };
+		401716452A1D27BC00B37508 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401716432A1D27BC00B37508 /* MainVC.swift */; };
 		404C326E2A0BEC5700613790 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C326D2A0BEC5700613790 /* User.swift */; };
 		404C32712A0BEC8A00613790 /* AuthMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C32702A0BEC8A00613790 /* AuthMapper.swift */; };
 		404EA6582A056B8F00CA6228 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404EA6572A056B8F00CA6228 /* AuthService.swift */; };
@@ -31,8 +33,6 @@
 		407AD7EF2A040FEE000054F2 /* TDLibKit in Frameworks */ = {isa = PBXBuildFile; productRef = 407AD7EE2A040FEE000054F2 /* TDLibKit */; };
 		407E968E2A07D2E9008E6ACA /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E968D2A07D2E9008E6ACA /* ConfirmationVC.swift */; };
 		407E96902A07D8AF008E6ACA /* ConfirmationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E968F2A07D8AF008E6ACA /* ConfirmationVM.swift */; };
-		407E96932A07DD60008E6ACA /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96922A07DD60008E6ACA /* MainVC.swift */; };
-		407E96952A07E062008E6ACA /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E96942A07E062008E6ACA /* MainVM.swift */; };
 		409530AC2A18E36900A696B6 /* RecordsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409530AB2A18E36900A696B6 /* RecordsVC.swift */; };
 		409530AE2A18E37200A696B6 /* RecordsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409530AD2A18E37200A696B6 /* RecordsVM.swift */; };
 		40D3DB5B2A168E35001D5FD5 /* AudioResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D3DB5A2A168E35001D5FD5 /* AudioResult.swift */; };
@@ -65,6 +65,8 @@
 		401441C72A11163B00F7B508 /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
 		401441C92A11187D00F7B508 /* TimeInterval+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+String.swift"; sourceTree = "<group>"; };
 		401441CB2A12511700F7B508 /* FakePullService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakePullService.swift; sourceTree = "<group>"; };
+		401716422A1D27BC00B37508 /* MainVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
+		401716432A1D27BC00B37508 /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		404C326D2A0BEC5700613790 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		404C32702A0BEC8A00613790 /* AuthMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMapper.swift; sourceTree = "<group>"; };
 		404EA6572A056B8F00CA6228 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -80,8 +82,6 @@
 		40525BAE29F91FD300367AD1 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		407E968D2A07D2E9008E6ACA /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		407E968F2A07D8AF008E6ACA /* ConfirmationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVM.swift; sourceTree = "<group>"; };
-		407E96922A07DD60008E6ACA /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
-		407E96942A07E062008E6ACA /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		409530AB2A18E36900A696B6 /* RecordsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsVC.swift; sourceTree = "<group>"; };
 		409530AD2A18E37200A696B6 /* RecordsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsVM.swift; sourceTree = "<group>"; };
 		40D3DB5A2A168E35001D5FD5 /* AudioResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioResult.swift; sourceTree = "<group>"; };
@@ -125,13 +125,23 @@
 			path = BeWiredsList;
 			sourceTree = "<group>";
 		};
+		401716412A1D27BC00B37508 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				401716432A1D27BC00B37508 /* MainVC.swift */,
+				401716422A1D27BC00B37508 /* MainVM.swift */,
+			);
+			name = Main;
+			path = LoginModule/Main;
+			sourceTree = "<group>";
+		};
 		402ACFA92A097525006975E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				401716412A1D27BC00B37508 /* Main */,
 				409530AA2A18E34300A696B6 /* Records */,
 				401441BE2A11052B00F7B508 /* BeWiredsList */,
 				ED3A60272A102B12003DC922 /* UsersList */,
-				407E96912A07DD01008E6ACA /* Main */,
 				40F833102A06A38D00E2CB86 /* LoginModule */,
 			);
 			path = Modules;
@@ -243,15 +253,6 @@
 				40D3DB5A2A168E35001D5FD5 /* AudioResult.swift */,
 			);
 			path = Audio;
-			sourceTree = "<group>";
-		};
-		407E96912A07DD01008E6ACA /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				407E96922A07DD60008E6ACA /* MainVC.swift */,
-				407E96942A07E062008E6ACA /* MainVM.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		409530AA2A18E34300A696B6 /* Records */ = {
@@ -446,7 +447,6 @@
 				409530AC2A18E36900A696B6 /* RecordsVC.swift in Sources */,
 				ED3A60112A1029D9003DC922 /* UIView + Extensions.swift in Sources */,
 				4002D4692A19176E005F3DEA /* UIViewController+Alert.swift in Sources */,
-				407E96952A07E062008E6ACA /* MainVM.swift in Sources */,
 				401441C02A11057300F7B508 /* BeWiredsVC.swift in Sources */,
 				40525B9229F8476000367AD1 /* TestVC.swift in Sources */,
 				407E968E2A07D2E9008E6ACA /* ConfirmationVC.swift in Sources */,
@@ -457,6 +457,7 @@
 				40525B8E29F8476000367AD1 /* AppDelegate.swift in Sources */,
 				401441C62A110BB500F7B508 /* BeWiredTest.swift in Sources */,
 				401441C22A11059800F7B508 /* BeWiredsVM.swift in Sources */,
+				401716452A1D27BC00B37508 /* MainVC.swift in Sources */,
 				401441CA2A11187D00F7B508 /* TimeInterval+String.swift in Sources */,
 				ED0FFA5D2A124BDC004A8F4F /* String + Entity names.swift in Sources */,
 				ED3A60232A102ADF003DC922 /* SubscriptionsService.swift in Sources */,
@@ -481,9 +482,9 @@
 				404C326E2A0BEC5700613790 /* User.swift in Sources */,
 				401441C82A11163B00F7B508 /* Date+String.swift in Sources */,
 				404EA6582A056B8F00CA6228 /* AuthService.swift in Sources */,
+				401716442A1D27BC00B37508 /* MainVM.swift in Sources */,
 				40F7AFCC2A069321002EC857 /* Constants.swift in Sources */,
 				ED3A602E2A102B50003DC922 /* UsersListVmProtocol.swift in Sources */,
-				407E96932A07DD60008E6ACA /* MainVC.swift in Sources */,
 				409530AE2A18E37200A696B6 /* RecordsVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

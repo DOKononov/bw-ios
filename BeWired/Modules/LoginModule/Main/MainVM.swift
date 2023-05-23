@@ -9,6 +9,7 @@ protocol MainViewModelProtocol {
     var didLogedout: (() -> Void)? {get set}
     var openAuthScreen: (() -> Void)? { get set }
     var auth: AuthServiceProtocol { get }
+    var user: User? {get}
 }
 
 final class MainViewModel: MainViewModelProtocol {
@@ -20,7 +21,7 @@ final class MainViewModel: MainViewModelProtocol {
     var userDidChanged: ((User) -> Void)?
     var openAuthScreen: (() -> Void)?
     
-    private var user: User? {
+    var user: User? {
         didSet {
             if let user {
                 userDidChanged?(user)
