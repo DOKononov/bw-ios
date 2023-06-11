@@ -7,23 +7,29 @@
 
 import Foundation
 
-enum PullStatus {
-    case inprogress
-    case done(_ count: Int)
-    case empty
-}
-
 protocol BeWiredsVMProtocol {
-    var beWireds: [BeWiredTest] {get set}
+    var beWireds: [URL] {get set}
     var beWiredsDidUpadete: (()-> Void)? {get set}
     var pullStatusDidUpdate: (() -> Void)? {get set}
     var pullStatus: PullStatus? { get set }
+    var didReciveError: ((String) -> Void)? {get set}
     func pullDidPressed()
+    
+    func playDidTapped()
+    var selectedRecordUrl: URL? {get set}
+    var playDidChangedStatus: ((Bool)-> Void)? {get set}
+    func deleteRecord(at url: URL)
+    
 }
 
 final class BeWiredsVM: BeWiredsVMProtocol {
-    var pullStatusDidUpdate: (() -> Void)?
+    var didReciveError: ((String) -> Void)?
+    private let storage: AudioStorageProtocol
+    private var audioPlayer: AudioPlayerProtocol
+    var selectedRecordUrl: URL?
     
+    var pullStatusDidUpdate: (() -> Void)?
+    private let user: User
     var pullStatus: PullStatus? {
         didSet {
             pullStatusDidUpdate?()
@@ -31,35 +37,87 @@ final class BeWiredsVM: BeWiredsVMProtocol {
     }
     
     var beWiredsDidUpadete: (() -> Void)?
+    var playDidChangedStatus: ((Bool)-> Void)?
     
-    var beWireds: [BeWiredTest] = [
-        BeWiredTest(user: "Ilon Mask"),
-        BeWiredTest(user: "Arkadi Ukupnik")
-    ] {
+    var beWireds: [URL] = [] {
         didSet {
             beWiredsDidUpadete?()
         }
     }
     
-    private let pullService: FakePullProtocol
+    private let pullService: PullService
     
-    init(pullService: FakePullProtocol) {
-        self.pullService = pullService
+    init(user: User) {
+        self.pullService = PullService()
+        self.storage = AudioStorage()
+        self.user = user
+        self.audioPlayer = AudioPlayer()
+        loadAllBeWireds()
+        bind()
     }
     
     
     func pullDidPressed() {
         pullStatus = .inprogress
-        pullService.pull { [weak self] result in
-            guard let self else {return}
+        pullService.pull(userId: "\(user.id)") { result in
             switch result {
+            case .success(let newBeWireds):
+                self.beWireds = newBeWireds + self.beWireds
+                
+                self.beWireds.isEmpty ?
+                (self.pullStatus = .empty) :
+                (self.pullStatus = .done(newBeWireds.count))
+                
             case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let beWireds):
-                self.beWireds = beWireds + self.beWireds
-                beWireds.isEmpty ? (self.pullStatus = .empty) : (self.pullStatus = .done(beWireds.count))
+                self.didReciveError?(error.localizedDescription)
+                self.pullStatus = .empty
             }
         }
     }
     
+    private func loadAllBeWireds() {
+        do {
+            self.beWireds = try storage.getAllAudioFiles(of: .bewired)
+        } catch {
+            didReciveError?(error.localizedDescription)
+        }
+    }
+    
+    private var playInProgress = false {
+        didSet {
+            playDidChangedStatus?(playInProgress)
+        }
+    }
+    
+    func playDidTapped() {
+        guard let selectedRecordUrl else {
+            didReciveError?("selectedRecordUrl Error")
+            return
+        }
+        
+        if playInProgress {
+            audioPlayer.stop()
+        } else {
+            do {
+                try audioPlayer.play(record: selectedRecordUrl)
+            } catch {
+                didReciveError?(error.localizedDescription)
+            }
+        }
+        playInProgress = !playInProgress
+    }
+    
+    func deleteRecord(at url: URL) {
+        do {
+            try storage.deleteAudioFile(at: url)
+        } catch {
+            didReciveError?(error.localizedDescription)
+        }
+        loadAllBeWireds()
+    }
+    private func bind() {
+        audioPlayer.playDidFinished = { [weak self] in
+            self?.playInProgress = false
+        }
+    }
 }

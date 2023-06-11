@@ -9,7 +9,7 @@ import UIKit
 
 final class BeWiredsVC: UIViewController {
     
-    private var viewModel: BeWiredsVMProtocol
+    private var viewmodel: BeWiredsVMProtocol
     
     private let beWiredsTitle: UILabel = {
         let label = UILabel()
@@ -83,7 +83,7 @@ final class BeWiredsVC: UIViewController {
     }()
     
     init(viewModel: BeWiredsVMProtocol) {
-        self.viewModel = viewModel
+        self.viewmodel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,7 +96,7 @@ final class BeWiredsVC: UIViewController {
         initialize()
         beWiredsTableView.delegate = self
         beWiredsTableView.dataSource = self
-        scrollLabel.text = viewModel.beWireds.first?.description
+        scrollLabel.text = viewmodel.beWireds.first?.lastPathComponent
         view.backgroundColor = .systemBackground
     }
     
@@ -119,43 +119,67 @@ final class BeWiredsVC: UIViewController {
     }
     
     private func bind() { 
-        viewModel.beWiredsDidUpadete = { [weak self] in
+        viewmodel.beWiredsDidUpadete = { [weak self] in
             DispatchQueue.main.async {
                 self?.beWiredsTableView.reloadData()
-                self?.beWiredsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                if let beWiredsIsEmpty = self?.viewmodel.beWireds.isEmpty, !beWiredsIsEmpty {
+                    self?.beWiredsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                }
             }
         }
         
-        viewModel.pullStatusDidUpdate = { [weak self] in
+        viewmodel.didReciveError = { [weak self] errorMessage in
+            guard let self else {return}
+            DispatchQueue.main.async {
+                self.showErrorAlert(for: errorMessage)
+            }
+        }
+        
+        viewmodel.pullStatusDidUpdate = { [weak self] in
             self?.updateStatusLabel()
+        }
+        
+        viewmodel.playDidChangedStatus = { [weak self] inProgress in
+            DispatchQueue.main.async {
+                inProgress ?
+                self?.playButton.setImage(UIImage(systemName: "stop.fill"), for: .normal) :
+                self?.playButton.setImage(UIImage(systemName: "play"), for: .normal)
+            }
         }
     }
     
     private func addTargets() {
         pullButton.addTarget(self, action: #selector(pullButtonDidPressed), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playButtonDidTapped), for: .touchUpInside)
     }
     
     @objc private func pullButtonDidPressed() {
-        viewModel.pullDidPressed()
+        viewmodel.pullDidPressed()
+    }
+    
+    @objc private func playButtonDidTapped() {
+        viewmodel.playDidTapped()
     }
     
     private func updateStatusLabel() {
-        switch viewModel.pullStatus {
-        case .done(let count):
-            pullButton.isEnabled = true
-            showStatusLabel()
-            statusLabel.text = "\(count) new BeWired for you"
-            hideStatusLabel()
-        case .empty:
-            pullButton.isEnabled = true
-            statusLabel.text = "No updates 🥺"
-            hideStatusLabel()
-        case .inprogress:
-            pullButton.isEnabled = false
-            showStatusLabel()
-            statusLabel.text = "Preparing audios for you 🤗..."
-        case .none:
-            break
+        DispatchQueue.main.async { [weak self] in
+            switch self?.viewmodel.pullStatus {
+            case .done(let count):
+                self?.pullButton.isEnabled = true
+                self?.showStatusLabel()
+                self?.statusLabel.text = "\(count) new BeWired for you"
+                self?.hideStatusLabel()
+            case .empty:
+                self?.pullButton.isEnabled = true
+                self?.statusLabel.text = "No updates 🥺"
+                self?.hideStatusLabel()
+            case .inprogress:
+                self?.pullButton.isEnabled = false
+                self?.showStatusLabel()
+                self?.statusLabel.text = "Preparing audios for you 🤗..."
+            case .none:
+                break
+            }
         }
     }
     
@@ -178,12 +202,12 @@ final class BeWiredsVC: UIViewController {
 //MARK: -TableView
 extension BeWiredsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.beWireds.count
+        return viewmodel.beWireds.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(BeWiredCell.self)", for: indexPath) as? BeWiredCell
-        let beWired = viewModel.beWireds[indexPath.row]
+        let beWired = viewmodel.beWireds[indexPath.row]
         cell?.configure(with: beWired)
         return cell ?? UITableViewCell()
     }
@@ -193,15 +217,15 @@ extension BeWiredsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        scrollLabel.text = viewModel.beWireds[indexPath.row].description
+        scrollLabel.text = viewmodel.beWireds[indexPath.row].lastPathComponent
         descriptionScrollView.contentOffset = .zero
+        viewmodel.selectedRecordUrl = viewmodel.beWireds[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            viewModel.beWireds.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            let recordToDeleteUrl = viewmodel.beWireds[indexPath.row]
+            viewmodel.deleteRecord(at: recordToDeleteUrl)
         }
     }
     

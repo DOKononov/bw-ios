@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 protocol AudioRecorderProtocol {
-    func startRecording(recordId: String, completion: @escaping AudioResult<Void>)
+    func startRecording(recordId: String) throws
     func stopRecording()
 }
 
@@ -18,6 +18,8 @@ final class AudioRecorder: AudioRecorderProtocol {
     private var audioRecorder: AVAudioRecorder
     private let audioStorage: AudioStorageProtocol
     private var audioSession: AVAudioSession
+    private let prefix = RecordType.record.rawValue
+
     
     init(_ audioStorage: AudioStorageProtocol) {
         self.audioRecorder = AVAudioRecorder()
@@ -26,14 +28,10 @@ final class AudioRecorder: AudioRecorderProtocol {
     }
     
     
-    func startRecording(recordId: String, completion: @escaping AudioResult<Void>) {
-        do {
-            try audioSession.setCategory(.playAndRecord, mode: .default)
-            try audioSession.setActive(true)
-        } catch {
-            completion(.failure(error))
-            return
-        }
+    func startRecording(recordId: String) throws {
+        try audioSession.setCategory(.playAndRecord, mode: .default)
+        try audioSession.setActive(true)
+        
         let settings = [
             AVFormatIDKey: Int(kAudioFormatLinearPCM),
             AVSampleRateKey: 44100,
@@ -41,15 +39,10 @@ final class AudioRecorder: AudioRecorderProtocol {
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
         
-        let directoryURL = audioStorage.getDocumentsDirectory(for: recordId)
-        do {
-            audioRecorder = try AVAudioRecorder(url: directoryURL, settings: settings)
-            audioRecorder.record()
-        } catch {
-            completion(.failure(error))
-            return
-        }
-        completion(.success(()))
+        let directoryURL = audioStorage.getDocumentsDirectory(for: prefix+recordId)
+        
+        audioRecorder = try AVAudioRecorder(url: directoryURL, settings: settings)
+        audioRecorder.record()
     }
     
     func stopRecording() {

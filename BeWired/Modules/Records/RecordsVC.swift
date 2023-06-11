@@ -46,6 +46,14 @@ final class RecordsVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    private let pushButton: UIButton = {
+        let configuration = UIButton.Configuration.filled()
+        let button = UIButton(configuration: configuration)
+        button.setTitle("Push", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +70,7 @@ final class RecordsVC: UIViewController {
             self.showErrorAlert(for: errorMessage)
         }
         
-        viewmodel.recordsPathDidUpdate = { [weak self] in
+        viewmodel.recordsDidChanges = { [weak self] in
             DispatchQueue.main.async {
                 self?.recordsTableView.reloadData()
             }
@@ -94,7 +102,7 @@ final class RecordsVC: UIViewController {
         view.addSubview(recButton)
         view.addSubview(playButton)
         view.addSubview(recordsTableView)
-
+        view.addSubview(pushButton)
     }
 
     private func setupLayout() {
@@ -112,10 +120,16 @@ final class RecordsVC: UIViewController {
             recButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.offset16),
             
             playButton.topAnchor.constraint(greaterThanOrEqualTo: recordsTableView.bottomAnchor, constant: Constants.offset8),
-            playButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            playButton.leadingAnchor.constraint(equalTo: recButton.trailingAnchor, constant: Constants.offset16),
             playButton.heightAnchor.constraint(equalToConstant: Constants.height55),
             playButton.widthAnchor.constraint(equalToConstant: Constants.height55),
             playButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.offset16),
+            
+            pushButton.topAnchor.constraint(equalTo: playButton.topAnchor),
+            pushButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.offset8),
+            pushButton.heightAnchor.constraint(equalToConstant: Constants.height55),
+            pushButton.widthAnchor.constraint(equalToConstant: Constants.width160),
+            pushButton.bottomAnchor.constraint(equalTo: playButton.bottomAnchor)
 
         ])
         recButton.makeRounded(.circle)
@@ -125,6 +139,7 @@ final class RecordsVC: UIViewController {
     private func addTargets() {
         recButton.addTarget(self, action: #selector(recDidTapped), for: .touchUpInside)
         playButton.addTarget(self, action: #selector(playDidTapped), for: .touchUpInside)
+        pushButton.addTarget(self, action: #selector(pullButtonDidTapped), for: .touchUpInside)
     }
 
     @objc private func recDidTapped() {
@@ -134,27 +149,31 @@ final class RecordsVC: UIViewController {
     @objc private func playDidTapped() {
         viewmodel.playDidTapped()
     }
+    
+    @objc private func pullButtonDidTapped() {
+        self.showErrorAlert(for: "В разработке 🙊")
+    }
 
 }
 
 
 extension RecordsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewmodel.recordsPath.count
+        return viewmodel.records.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(RecordCell.self)", for: indexPath) as? RecordCell
-        cell?.configure(with: viewmodel.recordsPath[indexPath.row])
+        cell?.configure(with: viewmodel.records[indexPath.row])
         return cell ?? UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewmodel.selectedRecordUrl = viewmodel.recordsPath[indexPath.row]
+        viewmodel.selectedRecordUrl = viewmodel.records[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let recordToDeleteUrl = viewmodel.recordsPath[indexPath.row]
+            let recordToDeleteUrl = viewmodel.records[indexPath.row]
             viewmodel.deleteRecord(at: recordToDeleteUrl)
         }
     }

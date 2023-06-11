@@ -6,15 +6,13 @@
 //
 
 import Foundation
+import SwiftOGG
 
 protocol AudioStorageProtocol {
     func saveAudioFile(recordId: String, data: Data, completion: @escaping AudioResult<URL>)
-    func deleteAudioFile(recordId: String, completion: @escaping AudioResult<Void>)
-    func deleteAudioFile(at url: URL, completion: @escaping AudioResult<Void>)
-    func getAllAudioFiles(containing: String, completion: @escaping AudioResult<[URL]>)
-    func getAllAudioFiles(completion: @escaping AudioResult<[URL]>)
-    func getAudioFileURL(recordId: String) -> URL?
+    func deleteAudioFile(at url: URL) throws
     func getDocumentsDirectory(for recordId: String) -> URL
+    func getAllAudioFiles(of type: RecordType) throws -> [URL]
 }
 
 final class AudioStorage: AudioStorageProtocol {
@@ -26,90 +24,64 @@ final class AudioStorage: AudioStorageProtocol {
     }
     
     func saveAudioFile(recordId: String, data: Data, completion: @escaping AudioResult<URL>) {
-        let fileURL = getDocumentsDirectory(for: recordId)
+        let fileURLopus = getDocumentsDirectory(for: recordId).appendingPathExtension("opus")
+        let fileURLpcm = getDocumentsDirectory(for: recordId).appendingPathExtension("pcm")
         do {
-            try data.write(to: fileURL)
-            completion(.success(fileURL))
-            return
+            try data.write(to: fileURLopus)
+            try OGGConverter.convertOpusOGGToM4aFile(src: fileURLopus, dest: fileURLpcm)
+            try fileManager.removeItem(at: fileURLopus)
+            completion(.success(fileURLpcm))
         } catch {
             completion(.failure(error))
-            return
         }
     }
     
-    func deleteAudioFile(recordId: String, completion: @escaping AudioResult<Void>) {
-        let fileURL = getDocumentsDirectory(for: recordId)
-        do {
-            try fileManager.removeItem(at: fileURL)
-            completion(.success(()))
-            return
-        } catch {
-            completion(.failure(error))
-            return
-        }
+    func deleteAudioFile(at url: URL) throws {
+        try fileManager.removeItem(at: url)
     }
-    
-    func deleteAudioFile(at url: URL, completion: @escaping AudioResult<Void>) {
-        do {
-            try fileManager.removeItem(at: url)
-            completion(.success(()))
-            return
-        } catch {
-            completion(.failure(error))
-            return
-        }
-    }
-    
-    func getAudioFileURL(recordId: String) -> URL? {
-        let fileURL = getDocumentsDirectory(for: recordId)
-        
-        if fileManager.fileExists(atPath: fileURL.path) {
-            return fileURL
-        } else {
-            return nil
-        }
-    }
-    
     
     func getDocumentsDirectory(for recordId: String) -> URL {
-        return getDocumentsDirectory().appendingPathComponent("\(recordId).ogg", conformingTo: .audio)
+        return getDocumentsDirectory().appendingPathComponent("\(recordId)", conformingTo: .audio)
     }
     
     private func getDocumentsDirectory() -> URL {
         return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
     
-    func getAllAudioFiles(containing: String, completion: @escaping AudioResult<[URL]>){
+    func getAllAudioFiles(of type: RecordType) throws -> [URL] {
         let documentDirectory = getDocumentsDirectory()
         var audioFiles: [URL] = []
         
-        do {
-            let directoryContents = try fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
-            for fileURL in directoryContents {
-                let fileName = fileURL.lastPathComponent
-                if fileName.contains(containing) {
-                    audioFiles.append(fileURL)
-                }
+        let directoryContents = try fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
+        
+        for fileURL in directoryContents {
+            let fileName = fileURL.lastPathComponent
+            if fileName.contains(type.rawValue) {
+                audioFiles.append(fileURL)
             }
-        } catch {
-            completion(.failure(error))
-            return
         }
-        completion(.success(audioFiles))
-        return
+        return audioFiles
     }
     
-    func getAllAudioFiles(completion: @escaping AudioResult<[URL]>){
-        let documentDirectory = getDocumentsDirectory()
-        var audioFiles: [URL] = []
-        do {
-            audioFiles = try fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
-        } catch {
-            completion(.failure(error))
-            return
-        }
-        completion(.success(audioFiles))
-        return
-    }
+    //    func getAllAudioFiles() throws -> [URL] {
+    //        let documentDirectory = getDocumentsDirectory()
+    //        return try fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
+    //    }
+    
+    //    func getAudioFileURL(recordId: String) -> URL? {
+    //        let fileURL = getDocumentsDirectory(for: recordId)
+    //
+    //        if fileManager.fileExists(atPath: fileURL.path) {
+    //            return fileURL
+    //        } else {
+    //            return nil
+    //        }
+    //    }
+    
+    //    func deleteAudioFile(recordId: String) throws {
+    //        let fileURL = getDocumentsDirectory(for: recordId)
+    //        try fileManager.removeItem(at: fileURL)
+    //    }
+    
 }
 

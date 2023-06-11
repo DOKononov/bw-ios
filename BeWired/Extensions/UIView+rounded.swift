@@ -25,6 +25,23 @@ extension UIView {
         clipsToBounds = true
     }
     
+    func makeRounded(_ radius: CGFloat,_ border: Bool) {
+        self.layoutIfNeeded()
+        border ? (layer.borderWidth = 1) : (layer.borderWidth = 0)
+        layer.borderColor = UIColor.systemGray.cgColor
+        layer.cornerRadius = radius
+        clipsToBounds = true
+    }
+
+    func makeRounded(_ mult: Shape,_ border: Bool) {
+        self.layoutIfNeeded()
+        border ? (layer.borderWidth = 1) : (layer.borderWidth = 0)
+        layer.borderColor = UIColor.systemGray.cgColor
+        layer.cornerRadius = self.frame.height / mult.value
+        clipsToBounds = true
+    }
+
+    
     enum Shape: CGFloat {
         case circle
         case rectangel
@@ -36,4 +53,5 @@ extension UIView {
             }
         }
     }
+
 }

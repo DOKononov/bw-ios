@@ -10,6 +10,7 @@ protocol MainViewModelProtocol {
     var openAuthScreen: (() -> Void)? { get set }
     var auth: AuthServiceProtocol { get }
     var user: User? {get}
+    func startBot()
 }
 
 final class MainViewModel: MainViewModelProtocol {
@@ -31,48 +32,56 @@ final class MainViewModel: MainViewModelProtocol {
         }
     }
     
+    func startBot() {
+        Task.init {
+            do {
+                try await auth.startBot()
+            } catch {
+                didReciveError?(error.localizedDescription)
+            }
+        }
+    }
+    
     init(auth: AuthServiceProtocol) {
         self.auth = auth
         showCurrentUser()
     }
- 
+    
     func showCurrentUser() {
-        auth.getCurrentUser { [weak self] result in
-            switch result {
-            case .success(let user):
-                self?.user = user
-            case .failure(let error):
-                self?.didReciveError?(error.localizedDescription)
+        Task.init {
+            do {
+                self.user = try await auth.getCurrentUser()
+            } catch {
+                didReciveError?(error.localizedDescription)
             }
         }
     }
     
     func logout() {
-        auth.logout { [weak self] result in
-            switch result {
-            case .success():
-                self?.user = nil
-                self?.didLogedout?()
-            case .failure(let error):
-                self?.didReciveError?(error.localizedDescription)
+        Task.init {
+            do {
+                try await auth.logout()
+                self.user = nil
+                self.didLogedout?()
+            } catch {
+                didReciveError?(error.localizedDescription)
             }
         }
     }
+    
 }
 // MARK: - Check auth state
 extension MainViewModel {
     
     func checkAuthState() {
-        // 1
-        auth.getAuthorizationState { [ weak self ] (result) in
-            // 2
-            switch result {
-            case .success(let state):
+        Task.init {
+            do {
+                let state = try await auth.getAuthorizationState()
                 if state != .authorizationStateReady {
-                    self?.openAuthScreen?()
+                    openAuthScreen?()
                 }
-            case .failure(let error):
-                self?.didReciveError?(String(describing: error))
+            } catch {
+                didReciveError?(error.localizedDescription)
             }
         }
     }

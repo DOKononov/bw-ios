@@ -1,7 +1,7 @@
 
 import UIKit
 
-final class MainVC: UIViewController {
+ class MainVC: UIViewController {
     
     private var viewmodel: MainViewModelProtocol
     
@@ -69,6 +69,14 @@ final class MainVC: UIViewController {
         return button
     }()
     
+    private let startBot: UIButton = {
+        let configuartion = UIButton.Configuration.filled()
+        let button = UIButton(configuration: configuartion)
+        button.setTitle("startBot", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Logout", for: .normal)
@@ -116,7 +124,7 @@ final class MainVC: UIViewController {
     }()
     
     private lazy var stackViewButtons: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [ subscriptionsButton, followersButton, allUsersButton, voiceRecordsButton, beWiredsButton ])
+        let stackView = UIStackView(arrangedSubviews: [ subscriptionsButton, followersButton, allUsersButton, voiceRecordsButton, beWiredsButton, startBot ])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -124,8 +132,8 @@ final class MainVC: UIViewController {
         return stackView
     }()
     
-    private let activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .large)
+    private let activityIndicator: UIImageView = {
+        let indicator = UIImageView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
@@ -149,22 +157,25 @@ final class MainVC: UIViewController {
     
     private func bind() {
         viewmodel.userDidChanged = { [weak self] user in
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self?.showUserData(user)
                 self?.showUI()
             }
         }
         
         viewmodel.didLogedout = { [weak self] in
+            guard let self else {
+                return
+            }
             DispatchQueue.main.async {
-                let loginVC = LoginVC(viewmodel: LoginViewModel(auth: AuthService()))
-                guard let navigationController = self?.navigationController else { return }
+                let splashVC = SplashScreenVC(authService: self.viewmodel.auth)
+                guard let navigationController = self.navigationController else { return }
                 
                 UIView.transition(with: navigationController.view,
                                   duration: 0.3,
                                   options: .transitionCrossDissolve,
                                   animations: {
-                    navigationController.setViewControllers([loginVC], animated: false)
+                    navigationController.setViewControllers([splashVC], animated: false)
                 }, completion: nil)
             }
         }
@@ -186,9 +197,9 @@ final class MainVC: UIViewController {
                     return
                 }
                 // 3
-                let loginVC = LoginVC(viewmodel: LoginViewModel(auth: self.viewmodel.auth))
+                let splashVC = SplashScreenVC(authService: self.viewmodel.auth)
                 // 4
-                navigationController.setViewControllers([loginVC], animated: true)
+                navigationController.setViewControllers([splashVC], animated: true)
             }
         }
     }
@@ -199,8 +210,8 @@ final class MainVC: UIViewController {
         stackViewTextFields.isHidden = true
         stackViewButtons.isHidden = true
         logoutButton.isHidden = true
+        activityIndicator.loadGif(name: String.AnimationsNames.activityIndicator)
         activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
     }
     
     private func showUI() {
@@ -210,7 +221,7 @@ final class MainVC: UIViewController {
         stackViewButtons.isHidden = false
         logoutButton.isHidden = false
         activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
+        activityIndicator.loadGif(asset: String.AnimationsNames.stopGifAnimations)
     }
     
     private func showUserData(_ user: User) {
@@ -262,7 +273,9 @@ final class MainVC: UIViewController {
             logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.offset8),
             
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: Constants.width150),
+            activityIndicator.heightAnchor.constraint(equalToConstant: Constants.height150)
         ])
         logoutButton.makeRounded(.rectangel)
         userImageView.makeRounded(.circle)
@@ -275,6 +288,11 @@ final class MainVC: UIViewController {
         logoutButton.addTarget(self, action: #selector(logoutButtonDidTapped), for: .touchUpInside)
         voiceRecordsButton.addTarget(self, action: #selector(voiceRecordsButtonDidTapped), for: .touchUpInside)
         beWiredsButton.addTarget(self, action: #selector(beWiredsButtonDidTapped), for: .touchUpInside)
+        startBot.addTarget(self, action: #selector(startBotDidPressed), for: .touchUpInside)
+    }
+    
+    @objc private func startBotDidPressed() {
+        viewmodel.startBot()
     }
     
     @objc private func logoutButtonDidTapped() {
@@ -292,11 +310,11 @@ final class MainVC: UIViewController {
     }
     
     @objc private func beWiredsButtonDidTapped() {
-        guard (viewmodel.user) != nil else {
-            self.showErrorAlert(for: "user = nil")
+        guard let user = viewmodel.user else {
+            self.showErrorAlert(for: "User == nil!")
             return
         }
-        let nextVC = BeWiredsVC(viewModel: BeWiredsVM(pullService: FakePullService()))
+        let nextVC = BeWiredsVC(viewModel: BeWiredsVM(user: user))
         navigationController?.pushViewController(nextVC, animated: true)
     }
 }

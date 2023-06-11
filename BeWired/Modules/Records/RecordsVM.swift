@@ -10,10 +10,10 @@ import Foundation
 protocol RecordsVMProtocol {
     func recDidTapped()
     func playDidTapped()
-    var recordsPath: [URL] {get set}
+    var records: [URL] {get set}
     var selectedRecordUrl: URL? {get set}
     var didReciveError: ((String) -> Void)? {get set}
-    var recordsPathDidUpdate: (()-> Void)? {get set}
+    var recordsDidChanges: (()-> Void)? {get set}
     var recDidChangedStatus: ((Bool)-> Void)? {get set}
     var playDidChangedStatus: ((Bool)-> Void)? {get set}
     func deleteRecord(at url: URL)
@@ -22,7 +22,7 @@ protocol RecordsVMProtocol {
 final class RecordsVM: RecordsVMProtocol {
     var recDidChangedStatus: ((Bool) -> Void)?
     var playDidChangedStatus: ((Bool) -> Void)?
-    var recordsPathDidUpdate: (() -> Void)?
+    var recordsDidChanges: (() -> Void)?
     private let user: User
     
     private let audioRecorder: AudioRecorder
@@ -40,9 +40,9 @@ final class RecordsVM: RecordsVMProtocol {
         }
     }
     var selectedRecordUrl: URL?
-    var recordsPath: [URL] = [] {
+    var records: [URL] = [] {
         didSet {
-            recordsPathDidUpdate?()
+            recordsDidChanges?()
         }
     }
     var didReciveError: ((String) -> Void)?
@@ -50,14 +50,18 @@ final class RecordsVM: RecordsVMProtocol {
     init(user: User) {
         self.user = user
         self.audioStorage = AudioStorage()
-        self.audioPlayer = AudioPlayer(audioStorage)
+        self.audioPlayer = AudioPlayer()
         self.audioRecorder = AudioRecorder(audioStorage)
         getAllRecords()
         bind()
     }
     
     func deleteRecord(at url: URL) {
-        audioStorage.deleteAudioFile(at: url) { [weak self] in self?.handleResult(result: $0)}
+        do {
+            try audioStorage.deleteAudioFile(at: url)
+        } catch {
+            didReciveError?(error.localizedDescription)
+        }
         getAllRecords()
     }
     
@@ -66,13 +70,11 @@ final class RecordsVM: RecordsVMProtocol {
             audioRecorder.stopRecording()
         } else {
             dateStamp = Date().convertedToIdString()
-            audioRecorder.startRecording(recordId: "\(user.id)\(dateStamp)") { [weak self] result in
-                switch result {
-                case .success():
-                    self?.getAllRecords()
-                case .failure(let error):
-                    print(#function, error)
-                }
+            do {
+                try audioRecorder.startRecording(recordId: "\(user.id)\(dateStamp)")
+                getAllRecords()
+            } catch {
+                didReciveError?(error.localizedDescription)
             }
         }
         recInProgress = !recInProgress
@@ -84,23 +86,24 @@ final class RecordsVM: RecordsVMProtocol {
             return
         }
         
-        playInProgress ?
-        audioPlayer.stop() :
-        audioPlayer.play(record: selectedRecordUrl) { [weak self] in self?.handleResult(result: $0)}
-    
+        if playInProgress {
+            audioPlayer.stop()
+        } else {
+            do {
+                try audioPlayer.play(record: selectedRecordUrl)
+            } catch {
+                didReciveError?(error.localizedDescription)
+            }
+        }
         playInProgress = !playInProgress
     }
     
     func getAllRecords() {
-        audioStorage.getAllAudioFiles { [weak self] in self?.handleResult(result: $0)}
-    }
-    
-    private func handleResult(result: Result<[URL], Error>) {
-        switch result {
-        case .success(let urls):
-            self.recordsPath = urls.sorted { $0.lastPathComponent > $1.lastPathComponent}
-        case .failure(let error):
-            self.didReciveError?(error.localizedDescription)
+        do {
+            let audioFiles = try audioStorage.getAllAudioFiles(of: .record)
+            self.records = audioFiles.sorted { $0.lastPathComponent > $1.lastPathComponent}
+        } catch {
+            didReciveError?(error.localizedDescription)
         }
     }
     
@@ -110,6 +113,7 @@ final class RecordsVM: RecordsVMProtocol {
             break
         case .failure(let error):
             didReciveError?(error.localizedDescription)
+            return
         }
     }
     

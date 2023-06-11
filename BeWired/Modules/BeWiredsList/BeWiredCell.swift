@@ -9,14 +9,19 @@ import UIKit
 
 final class BeWiredCell: UITableViewCell {
     
-    func configure(with beWired: BeWiredTest) {
+    func configure(with beWired: URL) {
         var content = self.defaultContentConfiguration()
         content.image = UIImage(named: "tg")
         content.imageProperties.cornerRadius = self.bounds.height / 2
-        content.text = beWired.user
+        
+        var title = beWired.lastPathComponent
+        title = title.dropPrefix(RecordType.bewired.rawValue)
+        title = title.dropSuffix(".pcm")
+        
+        content.text = title
         self.backgroundColor = .secondarySystemBackground
-        let dateText = beWired.date.formatDateToString()
-        let durationText = beWired.duration.formatTimeIntervalToString()
+        let dateText = "TODO"
+        let durationText = "TODO"
         content.secondaryText = "Release Date: \(dateText), duration: \(durationText)"
         self.contentConfiguration = content
     }
