@@ -15,12 +15,9 @@ final class LoginViewModel: LoginViewModelProtocol {
     var auth: AuthServiceProtocol
     var didSetPhoneNumber: (() -> Void)?
     var didReciveError: ((String) -> Void)?
-    var isValidDataService: IsValidDataProtocol
     
     init(_ auth: AuthServiceProtocol) {
-
         self.auth = auth
-        self.isValidDataService = isValidDataService
     }
     
     func setPhoneNumber(_ number: String) {

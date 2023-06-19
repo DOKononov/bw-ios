@@ -139,6 +139,7 @@ final class LoginVC: UIViewController {
     }
 }
 
+
 // MARK: TextField delegate methods
 extension LoginVC: UITextFieldDelegate {
     
@@ -149,10 +150,6 @@ extension LoginVC: UITextFieldDelegate {
             sendButton.isEnabled = false
         }
     }
-}
-
-// MARK: TextField delegate methods
-extension LoginVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.backgroundColor = .clear
