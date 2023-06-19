@@ -6,7 +6,8 @@ protocol LoginViewModelProtocol {
     var didReciveError: ((String) -> Void)? {get set}
     var auth: AuthServiceProtocol {get}
     func setPhoneNumber(_ number: String)
-    func isValidPhone(number: String) -> Bool
+    func isValidMobile(number: String) -> Bool
+
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
@@ -16,8 +17,8 @@ final class LoginViewModel: LoginViewModelProtocol {
     var didReciveError: ((String) -> Void)?
     var isValidDataService: IsValidDataProtocol
     
-    init(auth: AuthServiceProtocol,
-         isValidDataService: IsValidDataProtocol) {
+    init(_ auth: AuthServiceProtocol) {
+
         self.auth = auth
         self.isValidDataService = isValidDataService
     }
@@ -40,10 +41,9 @@ final class LoginViewModel: LoginViewModelProtocol {
 
 extension LoginViewModel {
     
-    func isValidPhone(number: String) -> Bool {
-        if isValidDataService.isValidMobile(number: number) {
-            return true
-        }
-        return false
+    func isValidMobile(number: String) -> Bool {
+        let smallestMobileCount = Constants.value11
+        return number.first == "+" && number.count >= Int(smallestMobileCount)
+
     }
 }

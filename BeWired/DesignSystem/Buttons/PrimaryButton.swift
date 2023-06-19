@@ -15,6 +15,7 @@ private extension PrimaryButton {
         self.setTitle(text, for: .normal)
         self.titleLabel?.font = font
         self.setTitleColor(tintColor, for: .normal)
+        self.setTitleColor(.bwPrimaryGray400, for: .disabled)
         self.layer.cornerRadius = cornerRadius
         self.layer.borderColor = borderColor.cgColor
         self.translatesAutoresizingMaskIntoConstraints = false

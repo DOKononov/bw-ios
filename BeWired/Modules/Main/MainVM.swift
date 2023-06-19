@@ -3,7 +3,7 @@ import Foundation
 
 protocol MainViewModelProtocol {
     func logout()
-    func checkAuthState()
+
     var userDidChanged: ((User) -> Void)? {get set}
     var didReciveError: ((String) -> Void)? {get set}
     var didLogedout: (() -> Void)? {get set}
@@ -26,8 +26,7 @@ final class MainViewModel: MainViewModelProtocol {
         didSet {
             if let user {
                 userDidChanged?(user)
-            } else {
-                didLogedout?()
+
             }
         }
     }
@@ -58,31 +57,17 @@ final class MainViewModel: MainViewModelProtocol {
     }
     
     func logout() {
-        Task.init {
+        
+        Task {
             do {
                 try await auth.logout()
-                self.user = nil
-                self.didLogedout?()
+                user = nil
+                    self.didLogedout?()
+
             } catch {
                 didReciveError?(error.localizedDescription)
             }
         }
-    }
-    
-}
-// MARK: - Check auth state
-extension MainViewModel {
-    
-    func checkAuthState() {
-        Task.init {
-            do {
-                let state = try await auth.getAuthorizationState()
-                if state != .authorizationStateReady {
-                    openAuthScreen?()
-                }
-            } catch {
-                didReciveError?(error.localizedDescription)
-            }
-        }
+
     }
 }

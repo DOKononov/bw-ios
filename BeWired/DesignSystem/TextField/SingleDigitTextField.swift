@@ -15,7 +15,7 @@ final class SingleDigitTextField: UITextField {
     let bottomHighLight: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .primaryGray400
+        view.backgroundColor = .bwPrimaryGray400
         return view
     }()
     
@@ -25,9 +25,9 @@ final class SingleDigitTextField: UITextField {
       
          func setTextFieldStyle() {
              translatesAutoresizingMaskIntoConstraints = false
-             backgroundColor = UIColor.primaryGray400
+             backgroundColor = UIColor.bwPrimaryGray400
              layer.borderWidth = Constants.width0
-             font = .interSemiBold16()
+             font = .bwInterSemiBold16
              backgroundColor = .clear
              textAlignment = .center
              keyboardType = .numberPad

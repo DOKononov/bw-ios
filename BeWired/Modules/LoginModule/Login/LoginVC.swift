@@ -17,8 +17,9 @@ final class LoginVC: UIViewController {
     private let pleaseLoginLabel: UILabel = {
         let label = UILabel()
         label.text = "Please login"
-        label.font = .interSemiBold24()
-        label.textColor = .primaryGray900
+        label.font = .bwInterSemiBold24
+        label.textColor = .bwPrimaryGray900
+
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -27,8 +28,9 @@ final class LoginVC: UIViewController {
     private let hintLabel: UILabel = {
         let label = UILabel()
         label.text = "Enter mobile number registered with Telegram"
-        label.font = .interMedium12()
-        label.textColor = .primaryGray400
+        label.font = .bwInterMedium12
+        label.textColor = .bwPrimaryGray400
+
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -39,18 +41,19 @@ final class LoginVC: UIViewController {
         tf.keyboardType = .phonePad
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.layer.cornerRadius = Constants.cornerRadius10
-        tf.backgroundColor = .primaryGray50
-        tf.font = .interMedium16()
-        tf.textColor = .primaryGray900
+        tf.backgroundColor = .bwPrimaryGray50
+        tf.font = .bwInterMedium16
+        tf.textColor = .bwPrimaryGray900
         tf.indent(size: Constants.offset10)
         tf.attributedPlaceholder =  NSAttributedString(string: "+123456667788",
-                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.primaryGray400, .font: UIFont.interMedium16() ?? .systemFont(ofSize: Constants.size12)])
+                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.bwPrimaryGray400, .font: UIFont.bwInterMedium16 ?? .systemFont(ofSize: Constants.size12)])
+
         return tf
     }()
     
     private let sendButton: UIButton = {
-        let button = PrimaryButton(text: "Send me a code", fillColor: .primaryGray900, tintColor: .white, borderColor: .clear, font: .interSemiBold16() ?? UIFont(), cornerRadius: Constants.cornerRadius14)
-        button.isHidden = true
+        let button = PrimaryButton(text: "Send me a code", fillColor: .bwPrimaryGray900, tintColor: .white, borderColor: .clear, font: .bwInterSemiBold16 ?? UIFont(), cornerRadius: Constants.cornerRadius14)
+
         button.isEnabled = false
         return button
     }()
@@ -125,6 +128,7 @@ final class LoginVC: UIViewController {
     
     private func addTargets() {
         sendButton.addTarget(self, action: #selector(sendButtonDidTapped), for: .touchUpInside)
+        phoneNumberTextfield.addTarget(self, action: #selector(textfieldEditing), for: .editingChanged)
     }
     
     @objc private func sendButtonDidTapped() {
@@ -138,10 +142,23 @@ final class LoginVC: UIViewController {
 // MARK: TextField delegate methods
 extension LoginVC: UITextFieldDelegate {
     
+    @objc private func textfieldEditing() {
+        if viewmodel.isValidMobile(number: phoneNumberTextfield.text ?? "") {
+            sendButton.isEnabled = true
+        } else {
+            sendButton.isEnabled = false
+        }
+    }
+}
+
+// MARK: TextField delegate methods
+extension LoginVC: UITextFieldDelegate {
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.backgroundColor = .clear
         textField.layer.borderWidth = Constants.width1
-        textField.layer.borderColor = UIColor.primarySkyBlue600.cgColor
+        textField.layer.borderColor = UIColor.bwPrimarySkyBlue600.cgColor
+
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -149,18 +166,15 @@ extension LoginVC: UITextFieldDelegate {
         guard
             let phoneNumber = textField.text,
             !phoneNumber.isEmpty else {
-            textField.backgroundColor = .primaryGray50
+            textField.backgroundColor = .bwPrimaryGray50
+
             textField.layer.borderWidth = Constants.width0
             textField.layer.borderColor = UIColor.clear.cgColor
             return
         }
         // 2
         textField.layer.borderWidth = Constants.width1
-        textField.layer.borderColor = UIColor.primarySkyBlue400.cgColor
-        // 3
-        if viewmodel.isValidPhone(number: phoneNumber) {
-            sendButton.isHidden = false
-            sendButton.isEnabled = true
-        }
+        textField.layer.borderColor = UIColor.bwPrimarySkyBlue400.cgColor
+
     }
 }

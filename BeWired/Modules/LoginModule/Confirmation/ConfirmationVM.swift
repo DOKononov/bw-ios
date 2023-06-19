@@ -11,7 +11,7 @@ protocol ConfirmationViewModelProtocol{
     var auth: AuthServiceProtocol {get}
     
     func confirmPhoneNumber(with code: String)
-    func checkForTwoStepAuth()
+
     func checkTwoStepAuth(pass: String)
 }
 
@@ -43,7 +43,7 @@ final class ConfirmationViewModel: ConfirmationViewModelProtocol {
 
 extension ConfirmationViewModel {
     
-    func checkForTwoStepAuth() {
+   private func checkForTwoStepAuth() {
         
         Task.init {
             do {
@@ -51,20 +51,36 @@ extension ConfirmationViewModel {
                 if state != .authorizationStateReady {
                     showTwoStepAuthAlert?()
                 } else {
+                    activateBot()
                     didConfirmPhoneNumber?()
                 }
             } catch {
                 didReciveError?(error.localizedDescription)
             }
         }
-        
     }
     // Check 2FA pass
     func checkTwoStepAuth(pass: String) {
         Task.init {
             do {
                 try await auth.checkTwoStepAuth(pass: pass)
+                activateBot()
                 didConfirmPhoneNumber?()
+            } catch {
+                didReciveError?("Password invalid")
+
+            }
+        }
+    }
+}
+
+extension ConfirmationViewModel {
+    
+    private func activateBot() {
+        Task {
+            do {
+                _ = try await auth.startBot()
+
             } catch {
                 didReciveError?(error.localizedDescription)
             }

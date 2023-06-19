@@ -5,10 +5,10 @@ final class DeckTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "\(DeckTableViewCell.self)")
-        addSubview(self.heartButton)
         addSubview(self.timeStampLabel)
         addSubview(self.descriptionLabel)
         addSubview(self.playAudioStatus)
+        self.backgroundColor = .white
         constraints()
     }
     
@@ -16,20 +16,21 @@ final class DeckTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+   var cl: (() -> Void)?
     // MARK: - Label
    private let timeStampLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .interMedium10()
-        label.textColor = .primarySkyBlue600
+        label.font = .bwInterMedium10
+        label.textColor = .bwPrimarySkyBlue600
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .interMedium12()
-        label.textColor = .primaryGray900
+        label.font = .bwInterMedium12
+        label.textColor = .bwPrimaryGray900
         label.numberOfLines = 0
         return label
     }()
@@ -42,16 +43,7 @@ final class DeckTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
-    // MARK: - Button
-    let heartButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: String.AssetsNames.unFillGrayHeart)?.withTintColor(.primaryGray400, renderingMode: .alwaysOriginal), for: .normal)
-        button.contentMode = .scaleAspectFit
-        return button
-    }()
-    
+
     func setCell(model: Timestams) {
         timeStampLabel.text = model.time
         descriptionLabel.text = model.description
@@ -64,12 +56,8 @@ extension DeckTableViewCell {
     private func constraints() {
         NSLayoutConstraint.activate([
             
-            heartButton.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.offset13),
-            heartButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.offset12),
-            heartButton.widthAnchor.constraint(equalToConstant: Constants.width13),
-            heartButton.heightAnchor.constraint(equalToConstant: Constants.height11),
-            
-            timeStampLabel.topAnchor.constraint(equalTo: heartButton.topAnchor),
+            timeStampLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.offset13),
+
             timeStampLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.offset12),
             timeStampLabel.widthAnchor.constraint(equalToConstant: Constants.width30),
             timeStampLabel.heightAnchor.constraint(equalToConstant: Constants.height12),

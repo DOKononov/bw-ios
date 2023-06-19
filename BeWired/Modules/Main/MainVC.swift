@@ -141,7 +141,7 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewmodel.checkAuthState()
+
         initialize()
         bind()
         view.backgroundColor = .systemBackground
@@ -157,26 +157,23 @@ import UIKit
     
     private func bind() {
         viewmodel.userDidChanged = { [weak self] user in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.async {
+
                 self?.showUserData(user)
                 self?.showUI()
             }
         }
         
         viewmodel.didLogedout = { [weak self] in
-            guard let self else {
-                return
-            }
+            guard let self else { return }
             DispatchQueue.main.async {
-                let splashVC = SplashScreenVC(authService: self.viewmodel.auth)
-                guard let navigationController = self.navigationController else { return }
-                
-                UIView.transition(with: navigationController.view,
-                                  duration: 0.3,
-                                  options: .transitionCrossDissolve,
-                                  animations: {
-                    navigationController.setViewControllers([splashVC], animated: false)
-                }, completion: nil)
+                self.logoutButton.isEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                    let splashVC = SplashVC(viewmodel: SplashVM())
+                    self.navigationController?.setViewControllers([splashVC], animated: true)
+                }
+
+
             }
         }
         
@@ -187,21 +184,7 @@ import UIKit
                 self?.userIdTextField.text = errorMessage
             }
         }
-        viewmodel.openAuthScreen = {
-            // 1
-            DispatchQueue.main.async { [ weak self ]  in
-                // 2
-                guard
-                    let self,
-                    let navigationController = self.navigationController else {
-                    return
-                }
-                // 3
-                let splashVC = SplashScreenVC(authService: self.viewmodel.auth)
-                // 4
-                navigationController.setViewControllers([splashVC], animated: true)
-            }
-        }
+
     }
     
     private func hideUI() {

@@ -2,6 +2,9 @@
 import UIKit
 
 final class DeckVC: UIViewController {
+    //
+    var delegate: MovingPlayerViewProtocol?
+
     
     // MARK: - Propertys
     
@@ -9,11 +12,16 @@ final class DeckVC: UIViewController {
     
     // MARK: - Labels
     private let nameLabel: UniversalLabel = {
-        let label = UniversalLabel(text: "Arlene Mc Coy", textColor: .primaryGray800, font: .interSemiBold18() ?? UIFont.systemFont(ofSize: Constants.size18), textAlign: .center)
+        let label = UniversalLabel(text: "Arlene Mc Coy", textColor: .bwPrimaryGray800, font: .bwInterSemiBold18 ?? UIFont.systemFont(ofSize: Constants.size18), textAlign: .center)
+
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    // MARK: - View
+    var audioPlayerView: AudioPlayerView
+    
+
     // MARK: - Buttons
     private lazy var customRightButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(customView: followingButton)
@@ -22,7 +30,9 @@ final class DeckVC: UIViewController {
     }()
     
     private let followingButton: PrimaryButton = {
-        let button = PrimaryButton(text: "Following", fillColor: .primaryGray100, tintColor: .primarySkyBlue600, borderColor: .clear, font: .interSemiBold12() ?? UIFont.systemFont(ofSize: Constants.size12), cornerRadius: Constants.cornerRadius10)
+        let button = PrimaryButton(text: "Following", fillColor: .bwPrimaryGray100, tintColor: .bwPrimarySkyBlue600, borderColor: .clear, font: .bwInterSemiBold12 ?? UIFont.systemFont(ofSize: Constants.size12), cornerRadius: Constants.cornerRadius10)
+        button.isHidden = true // Always hidden
+
         return button
     }()
     
@@ -33,43 +43,58 @@ final class DeckVC: UIViewController {
         imageView.image = UIImage(named: "TestUserProfile")
         imageView.layer.cornerRadius = Constants.cornerRadius10
         imageView.clipsToBounds = true
+
         return imageView
     }()
     
     // MARK: - TableView
-    private let deckTableView: UITableView = {
+    private lazy var deckTableView: UITableView = {
+
         let tableView = UITableView(frame: .zero, style: .grouped)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(DeckTableViewCell.self, forCellReuseIdentifier: "\(DeckTableViewCell.self)")
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .clear
         tableView.layer.cornerRadius = Constants.cornerRadius14
-        tableView.backgroundColor = .primaryGray225
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.showsVerticalScrollIndicator = false
+        tableView.addShadow(color: UIColor(red: 0.29, green: 0.33, blue: 0.41, alpha: 0.1), offset: (width: 0.0, height: 4.0), radius: 10.0, opacity: 1.0, alpha: 0.1, true)
         return tableView
     }()
     
-    init(viewModel: DeckVMProtocol) {
+    init(viewModel: DeckVMProtocol,
+         audioPlayerView: AudioPlayerView) {
         self.viewModel = viewModel
+        self.audioPlayerView = audioPlayerView
+
         super.init(nibName: nil,
                    bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         self.viewModel = DeckVM()
+        self.audioPlayerView = AudioPlayerView(isAvatarTapAvailability: false)
         super.init(coder: coder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .primaryGray225
+        navigationController?.navigationBar.tintColor = .bwPrimaryGray600
+        view.backgroundColor = .bwPrimaryGray50
+
         deckTableView.dataSource = self
         deckTableView.delegate = self
         addSubview()
         constraints()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        audioPlayerView.isAvatarTapAvailability = true
+        delegate?.moving(audioPlayerView: audioPlayerView)
+    }
+
 }
 
 // MARK: Add subview
@@ -79,6 +104,8 @@ extension DeckVC {
         navigationItem.setRightBarButton(customRightButtonItem, animated: true)
         view.addSubview(avatarImageView)
         view.addSubview(nameLabel)
+        view.addSubview(audioPlayerView)
+
         view.addSubview(deckTableView)
     }
 }
@@ -97,10 +124,16 @@ extension DeckVC {
             nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
             
+            audioPlayerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            audioPlayerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            audioPlayerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            audioPlayerView.heightAnchor.constraint(equalToConstant: Constants.height110),
+            
             deckTableView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constants.offset16),
             deckTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.offset16),
             deckTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.offset16),
-            deckTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            deckTableView.bottomAnchor.constraint(equalTo: audioPlayerView.topAnchor, constant: -Constants.offset7),
+
         ])
     }
 }
@@ -129,7 +162,13 @@ extension DeckVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        // 1
+        let section = viewModel.dairysArray[indexPath.section]
+        let timestampDescription = section.timestams[indexPath.row].description
+      
+        audioPlayerView.text = timestampDescription
+        audioPlayerView.userPicture = avatarImageView.image ?? UIImage()
+
     }
     
     // Header
@@ -140,12 +179,7 @@ extension DeckVC: UITableViewDataSource, UITableViewDelegate {
         return headerView
     }
     
-    // Footer
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView()
-        return view
-    }
-   
+
     // Cell corner radius
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // 1

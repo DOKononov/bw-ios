@@ -30,6 +30,11 @@ class ProfileButton: UIButton {
         return imageView
     }()
     
+    override func setImage(_ image: UIImage?, for state: UIControl.State) {
+        profileImageView.image = image
+    }
+    
+
     init(image: UIImage) {
         super.init(frame: .zero)
         updateBadge()

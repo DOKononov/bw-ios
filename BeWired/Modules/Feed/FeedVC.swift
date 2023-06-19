@@ -9,8 +9,16 @@ import UIKit
 
 final class FeedVC: UIViewController {
     
-    private  var viewmodel: FeedVMProtocol
+    private var viewmodel: FeedVMProtocol
     
+    private var audioPlayerView: AudioPlayerView = {
+        let view = AudioPlayerView(isAvatarTapAvailability: true)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+
+
     private let collectionView: UICollectionView = {
         let lay = UICollectionViewFlowLayout()
         
@@ -78,8 +86,11 @@ final class FeedVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+
         initialize()
         setupNavigationBar()
         collectionView.delegate = self
@@ -87,7 +98,10 @@ final class FeedVC: UIViewController {
         setPlaceholder(viewmodel.beWireds.isEmpty)
     }
     
+    
     private func initialize() {
+        title = "Feed"
+
         view.backgroundColor = .bwBackground
         addSubviews()
         setupLayouts()
@@ -122,6 +136,24 @@ final class FeedVC: UIViewController {
             self?.refresh()
         }
         
+        viewmodel.userDidChanged = { [weak self] user in
+            DispatchQueue.main.async {
+                if let imageData = user.profilePhotoData {
+                    self?.profileButton.setImage(UIImage(data: imageData), for: .normal)
+                }
+            }
+        }
+        audioPlayerView.playerAvatarDidTapped = { [ weak self ]  in
+            guard let self else {
+                return
+            }
+            self.audioPlayerView.isAvatarTapAvailability = false
+            let nextVC = DeckVC(viewModel: DeckVM(), audioPlayerView: self.audioPlayerView)
+    
+            nextVC.delegate = self
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+
     }
     
     private func addSubviews() {
@@ -130,8 +162,11 @@ final class FeedVC: UIViewController {
         view.addSubview(placeholderTopLabel)
         view.addSubview(placeholderBottomLabel)
         view.addSubview(micView)
+        view.addSubview(audioPlayerView)
     }
     
+    
+
     private func setupLayouts() {
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.offset16),
@@ -156,6 +191,12 @@ final class FeedVC: UIViewController {
             micView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             micView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
             
+            audioPlayerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            audioPlayerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            audioPlayerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            audioPlayerView.heightAnchor.constraint(equalToConstant: Constants.height110),
+            
+
         ])
     }
     
@@ -169,27 +210,27 @@ final class FeedVC: UIViewController {
     }
     
     @objc private func heartDidTapped() {
-        viewmodel.pullDidPressed()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            let mainVC = MainVC(viewmodel: MainViewModel(auth: self.viewmodel.auth))
+            self.navigationController?.pushViewController(mainVC, animated: true)
+        }
+
     }
     @objc private func magnifierDidTapped() {
         viewmodel.wipe()
     }
     
     @objc private func profileDidTapped() {
-        DispatchQueue.main.async {
-            
-            
-            let mainVC = MainVC(viewmodel: MainViewModel(auth: AuthService()))
-            let navi = UINavigationController(rootViewController: mainVC)
-            navi.modalPresentationStyle = .fullScreen
-            navi.modalTransitionStyle = .crossDissolve
-            self.present(navi, animated: true) 
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            let profileVC = ProfileVC(viewmodel: ProfileVM(user: self.viewmodel.user))
+            self.navigationController?.pushViewController(profileVC, animated: true)
         }
     }
-    
 }
 
-//MARK: -CollectionVie
+//MARK: -CollectionView
 extension FeedVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewmodel.beWireds.count
@@ -202,7 +243,6 @@ extension FeedVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         return cell ?? UICollectionViewCell()
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 76)
     }
@@ -211,7 +251,12 @@ extension FeedVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         16
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Touch")
+            audioPlayerView.isHidden = false
+            audioPlayerView.userPicture = UIImage(named: "testImage") ?? UIImage()
+            audioPlayerView.text = "7-12 May diarys"
+    }
 }
 
 //MARK: -NavigationItem
@@ -309,3 +354,12 @@ extension FeedVC {
     
 }
 
+extension FeedVC: MovingPlayerViewProtocol {
+    func moving(audioPlayerView: AudioPlayerView) {
+        DispatchQueue.main.async {
+            self.audioPlayerView = audioPlayerView
+            self.view.addSubview(self.audioPlayerView)
+            self.setupLayouts()
+        }
+    }
+}

@@ -42,6 +42,8 @@ final class AuthService: AuthServiceProtocol {
     
     func logout() async throws {
         _ = try await api.logOut()
+        _ = try await api.destroy()
+
     }
     
     func getCurrentUser() async throws -> User {

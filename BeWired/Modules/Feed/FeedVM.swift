@@ -8,33 +8,34 @@
 import Foundation
 
 protocol FeedVMProtocol {
+    var auth: AuthServiceProtocol {get}
+    var user: User? { get set } 
     var beWireds: [URL] {get set}
-    var beWiredsDidUpadete: (()-> Void)? {get set}
-    var didReciveError: ((String) -> Void)? {get set}
-//    var pullStatusDidUpdate: (() -> Void)? {get set}
-    var playDidChangedStatus: ((Bool)-> Void)? {get set}
     func wipe()
-
-
-//    var pullStatus: PullStatus? { get set }
     func pullDidPressed()
+    var beWiredsDidUpadete: (()-> Void)? {get set}
 
-    func deleteRecord(at url: URL)
+    var userDidChanged: ((User) -> Void)? {get set}
+    
+    var didReciveError: ((String) -> Void)? {get set}
 
 }
 
 final class FeedVM: FeedVMProtocol {
     var didReciveError: ((String) -> Void)?
     var beWiredsDidUpadete: (() -> Void)?
-//    var pullStatusDidUpdate: (() -> Void)?
     var playDidChangedStatus: ((Bool)-> Void)?
+    var userDidChanged: ((User) -> Void)?
+    let auth: AuthServiceProtocol
 
 
-    private let storage: AudioStorageProtocol
-    private var audioPlayer: AudioPlayerProtocol
-    private let pullService: PullService
-    private let user: User
-
+    var user: User? {
+        didSet {
+            if let user {
+                userDidChanged?(user)
+            } 
+        }
+    }
 
     var beWireds: [URL] = [] {
         didSet {
@@ -42,11 +43,6 @@ final class FeedVM: FeedVMProtocol {
         }
     }
 
-//    var pullStatus: PullStatus? {
-//        didSet {
-//            pullStatusDidUpdate?()
-//        }
-//    }
 
     private var playInProgress = false {
         didSet {
@@ -54,68 +50,29 @@ final class FeedVM: FeedVMProtocol {
         }
     }
 
-    init(user: User) {
-        self.pullService = PullService()
-        self.storage = AudioStorage()
-
-        self.user = user
-        self.audioPlayer = AudioPlayer()
-       
-        wipe()
-        loadAllBeWireds()
-        bind()
+    init(authService: AuthServiceProtocol) {
+        self.auth = authService
+       getCurrentUser()
     }
 
-    func wipe() {
-        beWireds.removeAll()
-    }
-//    func wipe() {
-//        let files = try! storage.getAllAudioFiles(of: .bewired)
-//        files.forEach { url in
-//            try! storage.deleteAudioFile(at: url)
-//        }
-//    }
     
+    private func getCurrentUser() {
+        Task.init {
+            do {
+                self.user = try await auth.getCurrentUser()
+            } catch {
+                didReciveError?(error.localizedDescription)
+            }
+        }
+    }
+
     func pullDidPressed() {
         let url = URL(string: "https://fontstorage.com/ru/font/rasmus-andersson/inter")!
         beWireds = [url] + beWireds
-//        pullStatus = .inprogress
-//        pullService.pull(userId: "\(user.id)") { result in
-//            switch result {
-//            case .success(let newBeWireds):
-//                self.beWireds = newBeWireds + self.beWireds
-//
-//                self.beWireds.isEmpty ?
-//                (self.pullStatus = .empty) :
-//                (self.pullStatus = .done(newBeWireds.count))
-//
-//            case .failure(let error):
-//                self.didReciveError?(error.localizedDescription)
-//                self.pullStatus = .empty
-//            }
-//        }
     }
 
-    private func loadAllBeWireds() {
-        do {
-            self.beWireds = try storage.getAllAudioFiles(of: .bewired)
-        } catch {
-            didReciveError?(error.localizedDescription)
-        }
-    }
+    func wipe() {
+        beWireds = []
 
-    private func bind() {
-        audioPlayer.playDidFinished = { [weak self] in
-            self?.playInProgress = false
-        }
-    }
-
-    func deleteRecord(at url: URL) {
-        do {
-            try storage.deleteAudioFile(at: url)
-        } catch {
-            didReciveError?(error.localizedDescription)
-        }
-        loadAllBeWireds()
     }
 }

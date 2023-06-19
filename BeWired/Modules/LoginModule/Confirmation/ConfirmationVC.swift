@@ -17,16 +17,18 @@ final class ConfirmationVC: UIViewController {
     }
     
     // MARK: - Labels
-    private let enterCode = UniversalLabel(text: "Enter a code", textColor: .primaryGray900, font: .interSemiBold24() ?? UIFont.systemFont(ofSize: Constants.size24), textAlign: .left)
+    private let enterCode = UniversalLabel(text: "Enter a code", textColor: .bwPrimaryGray900, font: .bwInterSemiBold24 ?? UIFont.systemFont(ofSize: Constants.size24), textAlign: .left)
     
-    private let hintLabel = UniversalLabel(text: "We've sent you a 5-digit login code. Please check your Telegram.", textColor: .primaryGray600, font: .interMedium14() ?? UIFont.systemFont(ofSize: Constants.size14), textAlign: .left)
+    private let hintLabel = UniversalLabel(text: "We've sent you a 5-digit login code. Please check your Telegram.", textColor: .bwPrimaryGray600, font: .bwInterMedium14 ?? UIFont.systemFont(ofSize: Constants.size14), textAlign: .left)
+
     
     // MARK: - View
     private let inputCodeField: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = Constants.cornerRadius10
-        view.backgroundColor = .primaryGray50
+        view.backgroundColor = .bwPrimaryGray50
+
         return view
     }()
     
@@ -46,7 +48,7 @@ final class ConfirmationVC: UIViewController {
         stackView.spacing = Constants.offset8
         return stackView
     }()
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,19 +72,26 @@ final class ConfirmationVC: UIViewController {
             guard let self else {return}
             
             DispatchQueue.main.async {
-                let nextVC = MainVC(viewmodel: MainViewModel(auth: self.viewmodel.auth))
+                let nextVC = FeedVC(viewmodel: FeedVM(authService: self.viewmodel.auth))
                 self.navigationController?.setViewControllers([nextVC], animated: true)
             }
         }
         viewmodel.didReciveError = { [weak self] errorMessage in
-            DispatchQueue.main.async {
-                self?.enterCode.text = errorMessage
-                self?.enterCode.font = .systemFont(ofSize: Constants.size12)
+            switch errorMessage {
+            case "Password invalid":
+                DispatchQueue.main.async {
+                    self?.showAlertWithSecureTextInput()
+                }
+            default:
+                DispatchQueue.main.async {
+                    self?.showErrorAlert(for: errorMessage)
+                }
             }
         }
-        viewmodel.showTwoStepAuthAlert = {
+        viewmodel.showTwoStepAuthAlert = { [ weak self ] in
             DispatchQueue.main.async {
-                self.showAlertWithSecureTextInput()
+                self?.showAlertWithSecureTextInput()
+
             }
         }
     }
@@ -146,14 +155,16 @@ extension ConfirmationVC {
         // 2
         if let currentIndex = currentIndex {
             if sender.text?.isEmpty ?? true {
-                sender.bottomHighLight.backgroundColor = .primaryGray400
+                sender.bottomHighLight.backgroundColor = .bwPrimaryGray400
+
                 if currentIndex > 0 {
                     let previousTextField = textFieldArray[currentIndex - 1]
                     previousTextField.becomeFirstResponder()
                 }
             } else {
                 // 3
-                sender.bottomHighLight.backgroundColor = .primarySkyBlue600
+                sender.bottomHighLight.backgroundColor = .bwPrimarySkyBlue600
+
                 if currentIndex < textFieldArray.count - 1 {
                     let nextTextField = textFieldArray[currentIndex + 1]
                     nextTextField.becomeFirstResponder()
@@ -189,10 +200,8 @@ extension ConfirmationVC {
             guard let self else {
                 return
             }
-            // 3
-            let splashVC = SplashScreenVC(authService: self.viewmodel.auth)
-            // 4
-            self.navigationController?.setViewControllers([splashVC], animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
+
         }
         // 4
         alertController.addAction(submitAction)
@@ -209,7 +218,8 @@ extension ConfirmationVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         inputCodeField.backgroundColor = .clear
         inputCodeField.layer.borderWidth = Constants.width1
-        inputCodeField.layer.borderColor = UIColor.primarySkyBlue600.cgColor
+        inputCodeField.layer.borderColor = UIColor.bwPrimarySkyBlue600.cgColor
+
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -225,7 +235,8 @@ extension ConfirmationVC: UITextFieldDelegate {
         // 3
         if textFieldIsEmpty {
             inputCodeField.layer.borderWidth = Constants.width0
-            inputCodeField.layer.borderColor = UIColor.primaryGray50.cgColor
+            inputCodeField.layer.borderColor = UIColor.bwPrimaryGray50.cgColor
+
         }
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
     
-    static var spacer: UIView? {
+    static var spacer: UIView {
         let spacer = UIView()
         let constraint = spacer.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat.greatestFiniteMagnitude)
         constraint.isActive = true
